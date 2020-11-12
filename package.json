@@ -1,0 +1,50 @@
+{
+	"name": "phaser3-parcel-template",
+	"version": "1.0.0",
+	"description": "A template project for Phaser3 using Parceljs",
+	"scripts": {
+		"assets": "gulp default",
+		"assets:clean": "gulp clean",
+		"start": "parcel src/index.html -p 8000",
+		"build": "parcel build src/index.html --out-dir dist",
+		"test": "jest",
+		"lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
+	},
+	"author": "supertommy",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ourcade/phaser3-parcel-template.git"
+	},
+	"homepage": "https://github.com/ourcade/phaser3-parcel-template",
+	"devDependencies": {
+		"@types/jest": "^26.0.15",
+		"@types/lodash": "^4.14.165",
+		"@typescript-eslint/eslint-plugin": "^2.29.0",
+		"@typescript-eslint/parser": "^2.29.0",
+		"canvas": "^2.6.1",
+		"eslint": "^6.8.0",
+		"gulp": "^4.0.2",
+		"jest": "^26.6.3",
+		"jest-create-mock-instance": "^1.1.0",
+		"minimist": ">=1.2.2",
+		"parcel-plugin-clean-easy": "^1.0.2",
+		"parcel-plugin-static-files-copy": "^2.4.3",
+		"rimraf": "^3.0.2",
+		"spritesheet-assembler": "^0.2.2",
+		"tile-extruder": "^2.0.6",
+		"ts-jest": "^26.4.4",
+		"typescript": "^3.8.3"
+	},
+	"dependencies": {
+		"gameutils": "file:../gameutils",
+		"phaser": "^3.24.1"
+	},
+	"parcelCleanPaths": [
+		"dist"
+	],
+	"staticFiles": {
+		"staticPath": "public",
+		"watcherGlob": "**"
+	}
+}

@@ -1,0 +1,20 @@
+[
+  "public/sprites/png/building/damages.png",
+  "public/sprites/png/building/ladder-left-bottom.png",
+  "public/sprites/png/building/ladder-left-middle.png",
+  "public/sprites/png/building/ladder-left-top.png",
+  "public/sprites/png/building/left-dented.png",
+  "public/sprites/png/building/left-neutral.png",
+  "public/sprites/png/building/middle-neutral.png",
+  "public/sprites/png/building/middle-right.png",
+  "public/sprites/png/building/neon-bottom.png",
+  "public/sprites/png/building/neon-top.png",
+  "public/sprites/png/building/pipe.png",
+  "public/sprites/png/building/right-neutral.png",
+  "public/sprites/png/building/top-left.png",
+  "public/sprites/png/building/top-middle.png",
+  "public/sprites/png/building/window-closed.png",
+  "public/sprites/png/building/window-lighted.png",
+  "public/sprites/png/building/window.png",
+  "public/sprites/png/building/big-window.png"
+]
