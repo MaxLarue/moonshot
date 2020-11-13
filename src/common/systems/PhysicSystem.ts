@@ -1,55 +1,26 @@
-import * as C from "../constants"
 import BaseScene from '~/general/BaseScene';
-import ISystem from '~/general/ISystem';
+import BaseSystem from '~/general/BaseSystem';
 import BodyComponent from '../components/BodyComponent';
 
-export type Layer = BodyComponent[]
 
-export default class PhysicSystem implements ISystem {
-  protected scene: BaseScene
-  protected layerNames: string[]
-  protected layers: Record<string, Layer>
+export default class PhysicSystem extends BaseSystem {
+  protected layers: Record<string, Phaser.Physics.Arcade.Group> = {}
 
   constructor(scene: BaseScene, layerNames: string[]) {
-    this.scene = scene
-    this.layerNames = layerNames
-    this.layers = {}
-    for (const layerName of layerNames) {
-      this.layers[layerName] = []
+    super(scene)
+    for(const name of layerNames) {
+      this.layers[name] = new Phaser.Physics.Arcade.Group(this.scene.physics.world, this.scene)
     }
   }
 
-  public registerBodyComponent(component: BodyComponent, layer: string) {
-    if (!this.layerNames.includes(layer)) throw new Error(`Added a component to non initialized layer ${layer}`)
-    for (const layerName in this.layers) {
-      for (const obj of this.layers[layerName]) {
-        this.scene.physics.add.collider(
-          component.gameObject,
-          obj.gameObject,
-          (gameObject1, gameObject2) => {
-            if (gameObject1.getData(C.GAME_OBJECT_COMPONENT_HANDLE) && gameObject2.getData(C.GAME_OBJECT_COMPONENT_HANDLE)) {
-              gameObject1.getData(C.GAME_OBJECT_COMPONENT_HANDLE).onCollide(
-                gameObject2.getData(C.GAME_OBJECT_COMPONENT_HANDLE)
-              )
-            }
-          }
-        )
-      }
-    }
-    this.layers[layer].push(component)
+  public addComponentToLayer(component: BodyComponent, name: string) {
+    const gameObject = component.gameObject
+    this.layers[name].add(gameObject)
   }
 
-  public unregisterBodyComponent(component: BodyComponent, layer: string) {
-    const index = this.layers[layer].indexOf(component)
-    if (index !== -1) {
-      this.layers[layer].splice(index)
-    }
+  public getGroup(groupName: string) {
+    return this.layers[groupName]
   }
 
-  create(): void {}
-  update(time: number, delta: number): void {}
-  delete(): void {
-    this.layers = {}
-  }
-  
+
 }

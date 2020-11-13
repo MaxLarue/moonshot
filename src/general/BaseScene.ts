@@ -4,11 +4,10 @@ import _ from "lodash"
 import ISystem from './ISystem'
 
 type EntitySet = Set<Entity>
-type Systems = Record<string, ISystem>
 
 export default class BaseScene extends Phaser.Scene {
   private _entities: EntitySet = new Set()
-  protected _systems: Systems = {}
+  private _systems: Record<string, ISystem> = {}
   
   public get entities(): EntitySet {
     return this._entities
@@ -35,28 +34,25 @@ export default class BaseScene extends Phaser.Scene {
     return Array.from(this.entities).filter(e => _.some(tags.map(t => e.hasTag(t))))
   }
 
-  public getSystem<T extends ISystem>(name: string, type: any): T {
-    if (name in this._systems && this._systems[name] instanceof type) {
-      return this._systems[name] as T
-    }
-    throw new Error(`Cannot find system with name ${name}`)
+  public addSystem(name: string, system: ISystem) {
+    this._systems[name] = system
+  }
+
+  public getSystemByName<T extends ISystem>(name: string) {
+    return this._systems[name] as T
   }
 
   public preload() {}
   public create() {
     this.scale.setZoom(2)
     this.entities.forEach(e => e.create())
-    _.mapValues(this._systems, s => s.create())
   }
   public update(time, delta) {
     this.entities.forEach(e => e.update(time, delta))
-    _.mapValues(this._systems, s => s.update(time, delta))
   }
   public stop() {
     this.entities.forEach(e => e.delete())
     this.entities = new Set()
-    _.mapValues(this._systems, s => s.delete())
-    this._systems = {}
   }
 
 }

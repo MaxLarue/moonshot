@@ -22,7 +22,7 @@ export default class PlayerEntity extends Entity {
       spriteSheetKey: C.PLAYER_SPRITESHEET, 
       defaultAnim: C.PLAYER_DEFAULT_ANIM
     }, [tags.PLAYER_COMPONENT_TAG]))
-    this.addComponent(new BodyComponent(this, {x: 30, y: 30,}, [tags.PLAYER_COMPONENT_TAG]))
+    this.addComponent(new BodyComponent(this, {x: 30, y: 30, layer: C.PLAYER_PHYSIC_LAYER}, [tags.PLAYER_COMPONENT_TAG]))
     this.addComponent(new CameraFollowComponent(this, [tags.PLAYER_COMPONENT_TAG]))
     this.addComponent(new PlayerController(this, [tags.PLAYER_COMPONENT_TAG], this.isFacingRight, this.stateMachine))
     this.animator = new PlayerAnimator(this, {

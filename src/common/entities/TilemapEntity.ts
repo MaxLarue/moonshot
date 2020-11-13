@@ -12,8 +12,8 @@ export default class TilemapEntity extends Entity {
     this.components.push(renderer)
   }
 
-  public addCollider(gameobject: Phaser.GameObjects.GameObject) {
-    this.getComponentByTag<TilemapRenderer>(tags.TILEMAP_COMPONENT_TAG, TilemapRenderer)
-      .addCollider(gameobject)
-  }
+  // public addCollider(gameobject: Phaser.GameObjects.GameObject) {
+  //   this.getComponentByTag<TilemapRenderer>(tags.TILEMAP_COMPONENT_TAG, TilemapRenderer)
+  //     .addCollider(gameobject)
+  // }
 }

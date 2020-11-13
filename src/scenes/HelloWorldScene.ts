@@ -1,3 +1,4 @@
+import * as C from "../specific/constants"
 import * as commonC from "../common/constants"
 import BaseScene from "../general/BaseScene"
 import _ from "lodash"
@@ -9,7 +10,6 @@ export default class HelloWorldScene extends BaseScene {
   
 	constructor() {
     super('hello-world')
-    this._systems[commonC.PHYSIC_SYSTEM_NAME] = new PhysicSystem(this)
 	}
 
 	preload() {
@@ -25,6 +25,7 @@ export default class HelloWorldScene extends BaseScene {
       tileSetSheetKey: "gameTiles"
     }, []))
     this.addEntity(new PlayerEntity(this, []))
+    this.addSystem(commonC.PHYSIC_SYSTEM_NAME, new PhysicSystem(this, C.PHYSIC_LAYERS))
     super.create()
   }
 }

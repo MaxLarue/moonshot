@@ -1,6 +1,9 @@
 import * as tags from "../tags"
+import * as C from "../constants"
 import BaseComponent from '../../general/BaseComponent';
 import Entity from '../../general/Entity';
+import PhysicSystem from '../systems/PhysicSystem';
+
 
 export enum TilemapLayerNames {
   Background = "Background",
@@ -73,7 +76,7 @@ export default class TilemapRenderer extends BaseComponent {
     
     
     this.layers[TilemapLayerNames.Terrain]?.setCollisionBetween(0, 9999, true)
-
+    
     this.entity.scene.cameras?.main.setBounds(0, 0, this._map.widthInPixels, this._map.heightInPixels)
     
   }
