@@ -4,7 +4,7 @@ import * as C from "../constants"
 import Entity from '~/general/Entity';
 import BodyComponent from "../../common/components/BodyComponent"
 import CameraFollowComponent from "../../common/components/CameraFollowComponent"
-import PlayerController from "../components/PlayerController"
+import PlayerController from "../components/PlayerJumpingController"
 import {FListener, LiveData} from "gameutils"
 import PlayerAnimator from '../components/PlayerAnimator';
 import PlayerStateMachine, { PlayerStates } from "../stateMachines/PlayerStateMachine"
@@ -13,7 +13,7 @@ import RendererComponent from '~/common/components/RendererComponent';
 
 export default class PlayerEntity extends Entity {
   protected isFacingRight: LiveData<boolean> = new LiveData<boolean>(true)
-  protected stateMachine: PlayerStateMachine = new PlayerStateMachine()
+  protected _stateMachine: PlayerStateMachine = new PlayerStateMachine()
   protected animator: PlayerAnimator
 
   constructor(scene: BaseScene, extraTags: string[]) {
@@ -24,15 +24,15 @@ export default class PlayerEntity extends Entity {
     }, [tags.PLAYER_COMPONENT_TAG]))
     this.addComponent(new BodyComponent(this, {x: 30, y: 30, layer: C.PLAYER_PHYSIC_LAYER}, [tags.PLAYER_COMPONENT_TAG]))
     this.addComponent(new CameraFollowComponent(this, [tags.PLAYER_COMPONENT_TAG]))
-    this.addComponent(new PlayerController(this, [tags.PLAYER_COMPONENT_TAG], this.isFacingRight, this.stateMachine))
+    this.addComponent(new PlayerController(this, [tags.PLAYER_COMPONENT_TAG], this.isFacingRight, this._stateMachine))
     this.animator = new PlayerAnimator(this, {
       current: C.PLAYER_DEFAULT_ANIM,
       animations: C.PLAYER_ANIMATIONS
     }, [tags.PLAYER_COMPONENT_TAG], this.isFacingRight)
-    this.addComponent(new PlayerRunningDetector(this, [tags.PLAYER_COMPONENT_TAG], this.stateMachine))
+    // this.addComponent(new PlayerRunningDetector(this, [tags.PLAYER_COMPONENT_TAG], this._stateMachine))
     this.addComponent(this.animator)
 
-    this.stateMachine.subscribe(new FListener((transition) => {
+    this._stateMachine.subscribe(new FListener((transition) => {
       switch(transition.to) {
         case PlayerStates.IDLE:
           this.animator.setAnimation(C.PLAYER_IDLE_ANIM)
@@ -47,8 +47,12 @@ export default class PlayerEntity extends Entity {
     }))
   }
 
+  public get stateMachine(): PlayerStateMachine {
+    return this._stateMachine
+  }
+
   delete() {
     super.delete()
-    this.stateMachine.purge()
+    this._stateMachine.purge()
   }
 }

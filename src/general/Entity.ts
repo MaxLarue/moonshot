@@ -33,6 +33,16 @@ export default class Entity implements ITagged, ILifecycleAware {
     }
     throw new Error(`Component with tag ${tag} was not found `)
   }
+  public popComponentByTag<T extends IComponent>(tag: string, type: any): T {
+    for(let i = 0 ; i < this.components.length ; ++i) {
+      if (this.components[i].hasTag(tag) && this.components[i] instanceof type) {
+        const component = this.components[i]
+        this.components.splice(i, 1)
+        return component as T
+      }
+    }
+    throw new Error(`Component with tag ${tag} was not found `)
+  }
   public getComponentsByTag<T extends IComponent>(tag: string, type: any): T[] {
     return this.components.filter(c => c.hasTag(tag) && c instanceof type) as T[]
   }

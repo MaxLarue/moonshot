@@ -3,7 +3,6 @@ import * as tags from "../tags"
 import BaseComponent from '~/general/BaseComponent'
 import Entity from '~/general/Entity';
 import BodyComponent from "../../common/components/BodyComponent"
-import Animator from '../../common/components/Animator';
 import { LiveData } from 'gameutils';
 import PlayerStateMachine, { PlayerStates } from '../stateMachines/PlayerStateMachine';
 
@@ -27,6 +26,29 @@ export default class PlayerController extends BaseComponent {
     this._playerBody = this.entity.getComponentByTag<BodyComponent>(commonTags.BODY_COMPONENT_TAG, BodyComponent)
   }
   update(time: number, delta: number): void {
+    this.handleCursors()
+    this.handleStateChange()
+  }
+  delete(): void {
+    
+  }
+
+  protected handleStateChange() {
+    if (this._playerBody?.body) {
+      const {x, y} = this._playerBody.body.velocity
+      if (y !== 0 && this.playerState.getState() !== PlayerStates.IN_AIR) {
+        this.playerState.transitionTo(PlayerStates.IN_AIR)
+      } 
+      if (x !== 0 && y === 0 && this.playerState.getState() !== PlayerStates.RUNNING) {
+        this.playerState.transitionTo(PlayerStates.RUNNING)
+      }
+      if (x === 0 && y === 0 && this.playerState.getState() !== PlayerStates.IDLE) {
+        this.playerState.transitionTo(PlayerStates.IDLE)
+      }
+    }
+  }
+
+  protected  handleCursors() {
     if (this._cursors && this._playerBody) {
       // Horizontal movement
       if (this._cursors.left?.isDown) {
@@ -42,14 +64,10 @@ export default class PlayerController extends BaseComponent {
       } else {
         (this._playerBody?.body as Phaser.Physics.Arcade.Body)?.setVelocityX(0);
       }
-  
       if (this._cursors.up?.isDown && this.playerState.getState() !== PlayerStates.IN_AIR) {
         (this._playerBody?.body as Phaser.Physics.Arcade.Body)?.setVelocityY(-200)
       }
     }
-  }
-  delete(): void {
-    
   }
 
 }

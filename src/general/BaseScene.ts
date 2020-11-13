@@ -2,6 +2,7 @@ import Phaser from "phaser"
 import Entity from "./Entity"
 import _ from "lodash"
 import ISystem from './ISystem'
+import { Vec2 } from 'gameutils'
 
 type EntitySet = Set<Entity>
 
@@ -46,6 +47,13 @@ export default class BaseScene extends Phaser.Scene {
   public create() {
     this.scale.setZoom(2)
     this.entities.forEach(e => e.create())
+    this.input.on('pointerup', pointer => {
+      if (pointer.leftButtonReleased()) {
+        const pos = new Vec2(this.input.activePointer.x, this.input.activePointer.y)
+        const cameraPos = new Vec2 (this.cameras.main.scrollX, this.cameras.main.scrollY)
+        console.log(pos.add(cameraPos))
+      }
+    })
   }
   public update(time, delta) {
     this.entities.forEach(e => e.update(time, delta))

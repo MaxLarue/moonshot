@@ -24,13 +24,13 @@ export default class ZoneDetector extends BaseComponent {
     if (bodies) {
       for (const body of bodies) {
         if (body.gameObject.getData(C.GAME_OBJECT_COMPONENT_HANDLE)) {
-          this.onObjectEnter(body.gameObject.getData(C.GAME_OBJECT_COMPONENT_HANDLE))
+          this.onObjectIsIn(body.gameObject.getData(C.GAME_OBJECT_COMPONENT_HANDLE))
         }
       }
     }
   }
   delete(): void {}
 
-  protected onObjectEnter(body: BodyComponent) {}
+  protected onObjectIsIn(body: BodyComponent) {}
 
 }
