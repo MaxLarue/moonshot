@@ -25,7 +25,10 @@ export default class HelloWorldScene extends BaseScene {
       tileSetSheetKey: "gameTiles"
     }, []))
     this.addEntity(new PlayerEntity(this, []))
-    this.addSystem(commonC.PHYSIC_SYSTEM_NAME, new PhysicSystem(this, C.PHYSIC_LAYERS))
+    this.addEntity(new PlayerEntity(this, []))
+    const collisionMatrix = _.fromPairs(_.zip(C.PHYSIC_LAYERS, C.PHYSIC_LAYERS.map(() => ({}))))
+    collisionMatrix[C.PLAYER_PHYSIC_LAYER][C.PLAYER_PHYSIC_LAYER] = true
+    this.addSystem(commonC.PHYSIC_SYSTEM_NAME, new PhysicSystem(this, C.PHYSIC_LAYERS, collisionMatrix))
     super.create()
   }
 }

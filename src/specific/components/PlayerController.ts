@@ -43,7 +43,7 @@ export default class PlayerController extends BaseComponent {
         (this._playerBody?.body as Phaser.Physics.Arcade.Body)?.setVelocityX(0);
       }
   
-      if (this._cursors.up?.isDown) {
+      if (this._cursors.up?.isDown && this.playerState.getState() !== PlayerStates.IN_AIR) {
         (this._playerBody?.body as Phaser.Physics.Arcade.Body)?.setVelocityY(-200)
       }
     }
