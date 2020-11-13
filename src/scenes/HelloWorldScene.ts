@@ -5,6 +5,9 @@ import _ from "lodash"
 import TilemapEntity from '~/common/entities/TilemapEntity';
 import PlayerEntity from "../specific/entities/PlayerEntity"
 import PhysicSystem from '~/common/systems/PhysicSystem';
+import Entity from '~/general/Entity';
+import ZoneDetector from '~/common/components/ZoneDetector';
+import { Rect } from 'gameutils';
 
 export default class HelloWorldScene extends BaseScene {
   
@@ -19,6 +22,9 @@ export default class HelloWorldScene extends BaseScene {
   }
 
   create() {
+    const detector = new Entity(this, [], [])
+    detector.addComponent(new ZoneDetector(detector, new Rect(200, 0, 99999, 99999), []))
+    this.addEntity(detector)
     this.addEntity(new TilemapEntity(this, {
       dataKey: "level1",
       tileSetName: "building",

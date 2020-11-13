@@ -1,4 +1,4 @@
-import { times } from 'lodash';
+import { Rect } from 'gameutils';
 import BaseScene from '~/general/BaseScene';
 import BaseSystem from '~/general/BaseSystem';
 import BodyComponent from '../components/BodyComponent';
@@ -36,5 +36,8 @@ export default class PhysicSystem extends BaseSystem {
     return this.layers[groupName]
   }
 
+  public getGameObjectsInZone(rect: Rect) {
+    return this.scene.physics.overlapRect(rect.x, rect.y, rect.w, rect.h)
+  }
 
 }
