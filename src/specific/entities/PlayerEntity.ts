@@ -11,7 +11,7 @@ import PlayerStateMachine, { PlayerStates } from "../stateMachines/PlayerStateMa
 import RendererComponent from '~/common/components/RendererComponent';
 
 export default class PlayerEntity extends Entity {
-  protected isFacingRight: LiveData<boolean> = new LiveData<boolean>(true)
+  protected _isFacingRight: LiveData<boolean> = new LiveData<boolean>(true)
   protected _stateMachine: PlayerStateMachine = new PlayerStateMachine()
   protected animator: PlayerAnimator
 
@@ -23,12 +23,11 @@ export default class PlayerEntity extends Entity {
     }, [tags.PLAYER_COMPONENT_TAG]))
     this.addComponent(new BodyComponent(this, {x: 30, y: 30, layer: C.PLAYER_PHYSIC_LAYER}, [tags.PLAYER_COMPONENT_TAG]))
     this.addComponent(new CameraFollowComponent(this, [tags.PLAYER_COMPONENT_TAG]))
-    this.addComponent(new PlayerController(this, [tags.PLAYER_COMPONENT_TAG], this.isFacingRight, this._stateMachine))
+    this.addComponent(new PlayerController(this, [tags.PLAYER_COMPONENT_TAG], this._isFacingRight, this._stateMachine))
     this.animator = new PlayerAnimator(this, {
       current: C.PLAYER_DEFAULT_ANIM,
       animations: C.PLAYER_ANIMATIONS
-    }, [tags.PLAYER_COMPONENT_TAG], this.isFacingRight)
-    // this.addComponent(new PlayerRunningDetector(this, [tags.PLAYER_COMPONENT_TAG], this._stateMachine))
+    }, [tags.PLAYER_COMPONENT_TAG], this._isFacingRight)
     this.addComponent(this.animator)
 
     this._stateMachine.subscribe(new FListener((transition) => {
@@ -54,6 +53,10 @@ export default class PlayerEntity extends Entity {
 
   public get stateMachine(): PlayerStateMachine {
     return this._stateMachine
+  }
+
+  public get isFacingRight(): LiveData<boolean> {
+    return this._isFacingRight
   }
 
   delete() {

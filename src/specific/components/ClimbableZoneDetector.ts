@@ -13,6 +13,7 @@ import { PlayerStates } from '../stateMachines/PlayerStateMachine';
 export interface ClimbableZoneDetectorOptions {
   hooked: LiveData<Entity | null>
   filter: FilterFunc
+  right: boolean
 }
 export type FilterFunc = (body: BodyComponent) => boolean
 
@@ -20,6 +21,7 @@ export default class ClimbableZoneDetector extends ZoneTrigger {
   protected filter: FilterFunc
   protected hooked: LiveData<Entity | null> = new LiveData(null)
   protected previousController: IComponent | null = null
+  protected right: boolean
 
   constructor(entity: Entity, rect: Rect, extraTags: string[], options: Partial<ClimbableZoneDetectorOptions>) {
     super(entity, rect, extraTags,)
@@ -27,6 +29,7 @@ export default class ClimbableZoneDetector extends ZoneTrigger {
     if (options.hooked) {
       this.hooked = options.hooked
     }
+    this.right = !!options.right
   }
 
   public onEntityEnter(entity: Entity) {
@@ -37,6 +40,7 @@ export default class ClimbableZoneDetector extends ZoneTrigger {
     playerEntity.addComponent(newController)
     newController.create()
     playerEntity.stateMachine.transitionTo(PlayerStates.CLIMBING)
+    playerEntity.isFacingRight.set(!this.right)
   }
 
   public onEntityLeave(entity: Entity) {

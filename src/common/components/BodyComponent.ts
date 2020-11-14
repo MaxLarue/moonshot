@@ -5,6 +5,7 @@ import Entity from '~/general/Entity';
 import RendererComponent from './RendererComponent';
 import PhysicSystem from '../systems/PhysicSystem';
 import TilemapRenderer from './TilemapRenderer';
+import {Rect, Vec2} from "gameutils"
 
 export interface BodyOption {
   x: number,
@@ -35,7 +36,20 @@ export default class BodyComponent extends BaseComponent {
     return this._initialY;
   }
 
-  public get body() { return this._gameObject?.body }
+  public get center(): Vec2 {
+    if (this.body) {
+      return new Vec2(this.body.center.x, this.body.center.y)
+    }
+    throw new Error("BodyComponent has no body")
+  }
+
+  public get rect(): Rect {
+    if (this.body)
+      return new Rect(this.body.x, this.body.y, this.body.width, this.body.height)
+    throw new Error("BodyComponent has no body")
+  }
+
+  public get body() { return this._gameObject?.body as Phaser.Physics.Arcade.Body }
 
   public get gameObject() {
     if (this._gameObject) {

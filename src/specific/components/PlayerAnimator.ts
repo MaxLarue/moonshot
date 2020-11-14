@@ -10,8 +10,10 @@ export default class PlayerAnimator extends Animator {
   constructor(entity: Entity, options: AnimatorOptions, extraTags: string[], isFacingRight: LiveData<boolean>) {
     super(entity, options, extraTags)
     this.isFacingRight = isFacingRight
-    this.onFacingSideChanged = new FListener(() => {
-      this.flip()
+    this.onFacingSideChanged = new FListener(value => {
+      if (value.previous !== value.next) {
+        this.flip()
+      } 
     })
     this.isFacingRight.subscribe(this.onFacingSideChanged)
   }
