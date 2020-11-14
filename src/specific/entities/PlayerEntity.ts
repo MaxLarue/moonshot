@@ -8,7 +8,6 @@ import PlayerController from "../components/PlayerJumpingController"
 import {FListener, LiveData} from "gameutils"
 import PlayerAnimator from '../components/PlayerAnimator';
 import PlayerStateMachine, { PlayerStates } from "../stateMachines/PlayerStateMachine"
-import PlayerRunningDetector from '../components/PlayerRunningDetector';
 import RendererComponent from '~/common/components/RendererComponent';
 
 export default class PlayerEntity extends Entity {
@@ -43,6 +42,12 @@ export default class PlayerEntity extends Entity {
         case PlayerStates.RUNNING:
           this.animator.setAnimation(C.PLAYER_RUNNING_ANIM)
           break
+        case PlayerStates.CLIMBING:
+          this.animator.setAnimation(C.PLAYER_CLIMBING_ANIM)
+          break;
+        case PlayerStates.CLIMBING_IDLE:
+          this.animator.setAnimation(C.PLAYER_CLIMBING_IDLE)
+          break;
       }
     }))
   }

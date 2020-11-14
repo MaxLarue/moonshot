@@ -7,6 +7,7 @@ export enum PlayerStates {
   RUNNING = "running", 
   IN_AIR = "in air",
   CLIMBING = "climbing",
+  CLIMBING_IDLE = "climbing_idle"
 }
 
 export default class PlayerStateMachine extends ObservableFsm<PlayerStates> {
@@ -19,14 +20,21 @@ export default class PlayerStateMachine extends ObservableFsm<PlayerStates> {
       {from: PlayerStates.RUNNING, to: PlayerStates.IN_AIR},
       {from: PlayerStates.RUNNING, to: PlayerStates.IDLE},
       {from: PlayerStates.RUNNING, to: PlayerStates.CLIMBING},
+      {from: PlayerStates.RUNNING, to: PlayerStates.CLIMBING_IDLE},
       {from: PlayerStates.IDLE, to: PlayerStates.RUNNING},
       {from: PlayerStates.IN_AIR, to: PlayerStates.IDLE},
       {from: PlayerStates.IN_AIR, to: PlayerStates.RUNNING},
       {from: PlayerStates.IN_AIR, to: PlayerStates.CLIMBING},
+      {from: PlayerStates.IN_AIR, to: PlayerStates.CLIMBING_IDLE},
       {from: PlayerStates.RUNNING, to: PlayerStates.IDLE},
       {from: PlayerStates.IDLE, to: PlayerStates.CLIMBING},
+      {from: PlayerStates.IDLE, to: PlayerStates.CLIMBING_IDLE},
       {from: PlayerStates.CLIMBING, to: PlayerStates.IDLE},
       {from: PlayerStates.CLIMBING, to: PlayerStates.IN_AIR},
+      {from: PlayerStates.CLIMBING, to: PlayerStates.CLIMBING_IDLE},
+      {from: PlayerStates.CLIMBING_IDLE, to: PlayerStates.IDLE},
+      {from: PlayerStates.CLIMBING_IDLE, to: PlayerStates.IN_AIR},
+      {from: PlayerStates.CLIMBING_IDLE, to: PlayerStates.CLIMBING},
     ]
   }
 

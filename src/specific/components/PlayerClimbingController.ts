@@ -4,6 +4,7 @@ import BodyComponent from '~/common/components/BodyComponent';
 import BaseComponent from '~/general/BaseComponent';
 import Entity from '~/general/Entity';
 import PlayerStateMachine, { PlayerStates } from '../stateMachines/PlayerStateMachine';
+import PlayerEntity from '../entities/PlayerEntity';
 
 export default class PlayerClimbingController extends BaseComponent {
   protected _cursors: Phaser.Types.Input.Keyboard.CursorKeys | null
@@ -23,12 +24,23 @@ export default class PlayerClimbingController extends BaseComponent {
       .getComponentByTag<BodyComponent>(commonTags.BODY_COMPONENT_TAG, BodyComponent)
   }
   update(time: number, delta: number): void {
+    const player = this.entity as PlayerEntity
     if (this._cursors && this._playerBody) {
-      (this._playerBody.body as Phaser.Physics.Arcade.Body).setVelocityY(0)
       if (this._cursors.up?.isDown) {
         (this._playerBody?.body as Phaser.Physics.Arcade.Body)?.setVelocityY(-200)
+        if (player.stateMachine.canTransitionTo(PlayerStates.CLIMBING)) {
+          player.stateMachine.transitionTo(PlayerStates.CLIMBING)
+        }
       } else if (this._cursors.down?.isDown) {
         (this._playerBody?.body as Phaser.Physics.Arcade.Body)?.setVelocityY(200)
+        if (player.stateMachine.canTransitionTo(PlayerStates.CLIMBING)) {
+          player.stateMachine.transitionTo(PlayerStates.CLIMBING)
+        }
+      } else {
+        (this._playerBody.body as Phaser.Physics.Arcade.Body).setVelocityY(0)
+        if (player.stateMachine.canTransitionTo(PlayerStates.CLIMBING_IDLE)) {
+          player.stateMachine.transitionTo(PlayerStates.CLIMBING_IDLE)
+        }
       }
     }
   }
