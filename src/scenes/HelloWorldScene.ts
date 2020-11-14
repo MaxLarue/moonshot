@@ -24,7 +24,7 @@ export default class HelloWorldScene extends BaseScene {
 
   create() {
     this.addEntity(
-      new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(410, 161.5), new Vec2(416.5, 316.5)), [])
+      new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(410, 179), new Vec2(416.5, 290)), [])
     )
     this.addEntity(new TilemapEntity(this, {
       dataKey: "level1",
