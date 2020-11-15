@@ -1,5 +1,6 @@
 import BaseScene from '~/general/BaseScene';
 import * as tags from "../tags"
+import * as commonTags from "../../common/tags"
 import * as C from "../constants"
 import Entity from '~/general/Entity';
 import BodyComponent from "../../common/components/BodyComponent"
@@ -60,6 +61,14 @@ export default class PlayerEntity extends Entity {
 
   public get isFacingRight(): LiveData<boolean> {
     return this._isFacingRight
+  }
+
+  create() {
+    super.create()
+    this.getComponentByTag<BodyComponent>(commonTags.BODY_COMPONENT_TAG, BodyComponent)
+      .body
+      .setSize(14, 26)
+      .setOffset(8, 6)
   }
 
   delete() {

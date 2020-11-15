@@ -18,6 +18,7 @@ export default class PlayerSlidingController extends BaseComponent {
   protected _hookedAt: number
   protected _cursors: Phaser.Types.Input.Keyboard.CursorKeys | null
   protected _offset: Vec2
+  protected _ejecting: boolean = false
 
   constructor(entity: Entity, hookedTo: SlidingDetector, playerStateMachine: PlayerStateMachine, offset?: Vec2) {
     super(entity, [tags.PLAYER_CONTROLLER_COMPONENT])
@@ -36,27 +37,31 @@ export default class PlayerSlidingController extends BaseComponent {
     if (this._goingRight) this._playerBody.body.position.x += this._offset.x
     else this._playerBody.body.position.x -= this._offset.x
     this._playerBody.body.position.y = this._hookedTo.line.getYForX(this._playerBody.body.position.x) + this._offset.y
-    if (!this._goingRight) this._playerBody.body.position.y -= 16 - this._offset.y
+    if (!this._goingRight) this._playerBody.body.position.y -= 8 - this._offset.y
   }
 
   update(time: number, delta: number): void {
-    const baseSpeed = C.SLIDING_BASE_SPEED
-    const maxSpeed = C.SLIDING_MAX_SPEED
-    const acceleration = Math.abs(this._hookedTo.line.slope) * C.SLIDING_ACCELERATION_FACTOR
-    let speed = Math.min(baseSpeed * acceleration * (time - this._hookedAt) / 1000, maxSpeed)
-    if (!this._goingRight) speed *= -1
-    if (!this._hookedAt) {
-      this._hookedAt = time - 1
-    } else {
-      this._playerBody.body.setVelocity(0, 0)
-      this._playerBody.body.position.x += speed
-      this._playerBody.body.position.y = this._hookedTo.line.getYForX(this._playerBody.body.position.x) + this._offset.y
-      if (!this._goingRight) this._playerBody.body.position.y -= 16 - this._offset.y
-      if (this._cursors && this._playerBody) {
-        if (this._cursors.down?.isDown) {
-          this._playerBody.body.setVelocity(speed * delta, 200)
-        } else if (this._cursors.up?.isDown) {
-          this._playerBody.body.setVelocity(speed * delta, -200)
+    if(!this._ejecting) {
+      const baseSpeed = C.SLIDING_BASE_SPEED
+      const maxSpeed = C.SLIDING_MAX_SPEED
+      const acceleration = Math.abs(this._hookedTo.line.slope) * C.SLIDING_ACCELERATION_FACTOR
+      let speed = Math.min(baseSpeed * acceleration * (time - this._hookedAt) / 1000, maxSpeed)
+      if (!this._goingRight) speed *= -1
+      if (!this._hookedAt) {
+        this._hookedAt = time - 1
+      } else {
+        this._playerBody.body.setVelocity(0, 0)
+        this._playerBody.body.position.x += speed
+        this._playerBody.body.position.y = this._hookedTo.line.getYForX(this._playerBody.body.position.x) + this._offset.y
+        if (!this._goingRight) this._playerBody.body.position.y -= 8 - this._offset.y
+        if (this._cursors && this._playerBody) {
+          if (this._cursors.down?.isDown) {
+            this._playerBody.body.setVelocity(speed * delta, 200)
+            this._ejecting = true
+          } else if (this._cursors.up?.isDown) {
+            this._playerBody.body.setVelocity(speed * delta, -200)
+            this._ejecting = true
+          }
         }
       }
     }
