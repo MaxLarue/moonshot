@@ -21,7 +21,7 @@ export default class ClimbableZoneDetector extends ZoneTrigger {
   protected filter: FilterFunc
   protected hooked: LiveData<Entity | null> = new LiveData(null)
   protected previousController: IComponent | null = null
-  protected right: boolean
+  protected _right: boolean
 
   constructor(entity: Entity, rect: Rect, extraTags: string[], options: Partial<ClimbableZoneDetectorOptions>) {
     super(entity, rect, extraTags,)
@@ -29,18 +29,20 @@ export default class ClimbableZoneDetector extends ZoneTrigger {
     if (options.hooked) {
       this.hooked = options.hooked
     }
-    this.right = !!options.right
+    this._right = !!options.right
   }
+
+  public get right() {return this._right}
 
   public onEntityEnter(entity: Entity) {
     this.hooked.set(entity)
     this.previousController = entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
     const playerEntity = entity as PlayerEntity
-    const newController = new PlayerClimbingController(entity, [], playerEntity.stateMachine)
+    const newController = new PlayerClimbingController(entity, [], playerEntity.stateMachine, this)
     playerEntity.addComponent(newController)
     newController.create()
     playerEntity.stateMachine.transitionTo(PlayerStates.CLIMBING)
-    playerEntity.isFacingRight.set(!this.right)
+    playerEntity.isFacingRight.set(!this._right)
   }
 
   public onEntityLeave(entity: Entity) {

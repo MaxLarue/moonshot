@@ -9,6 +9,7 @@ import Entity from '~/general/Entity';
 import ZoneDetector from '~/common/components/ZoneDetector';
 import { Rect, Vec2 } from 'gameutils';
 import ClimbableEntity from '~/specific/entities/ClimbableEntity';
+import SlidingEntity from '~/specific/entities/SlidingEntity';
 
 export default class HelloWorldScene extends BaseScene {
   
@@ -24,7 +25,7 @@ export default class HelloWorldScene extends BaseScene {
 
   create() {
     this.addEntity(
-      new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(410, 179), new Vec2(416.5, 290)), [])
+      new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(410, 362), new Vec2(418, 560)), [])
     )
     this.addEntity(new TilemapEntity(this, {
       dataKey: "level1",
@@ -32,6 +33,10 @@ export default class HelloWorldScene extends BaseScene {
       tileSetSheetKey: "gameTiles"
     }, []))
     this.addEntity(new PlayerEntity(this, []))
+    this.addEntity(new SlidingEntity(this, {
+      from: new Vec2(496, 304),
+      to: new Vec2(975.5, 559.5)
+    }, []))
     const collisionMatrix = _.fromPairs(_.zip(C.PHYSIC_LAYERS, C.PHYSIC_LAYERS.map(() => ({}))))
     collisionMatrix[C.PLAYER_PHYSIC_LAYER][C.PLAYER_PHYSIC_LAYER] = true
     this.addSystem(commonC.PHYSIC_SYSTEM_NAME, new PhysicSystem(this, C.PHYSIC_LAYERS, collisionMatrix))

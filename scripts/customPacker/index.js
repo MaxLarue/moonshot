@@ -90,12 +90,13 @@ async function packageSprites(spritePaths, order, options) {
     const ctx = canvas.getContext('2d')
     const proms = []
     let currentIndex = -1
-    for (let x = 0 ; x < columns ; ++x) {
-        for(let y = 0 ; y < rows ; ++y) {
+    for(let y = 0 ; y < rows ; ++y) {
+        for (let x = 0 ; x < columns ; ++x) {
             currentIndex++
             if (currentIndex >= count) {
                 break
             }
+            // console.log(order[currentIndex], x, y)
             proms.push(
                 loadImage(order[currentIndex])
                     .then(image => ctx.drawImage(image, x * size, y * size))

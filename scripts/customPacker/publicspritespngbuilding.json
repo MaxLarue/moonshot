@@ -16,5 +16,10 @@
   "public/sprites/png/building/window-closed.png",
   "public/sprites/png/building/window-lighted.png",
   "public/sprites/png/building/window.png",
-  "public/sprites/png/building/big-window.png"
+  "public/sprites/png/building/big-window.png",
+  "public/sprites/png/building/ladder-bottom-right.png",
+  "public/sprites/png/building/ladder-middle-right.png",
+  "public/sprites/png/building/ladder-right-top.png",
+  "public/sprites/png/building/pole-base.png",
+  "public/sprites/png/building/pole-top.png"
 ]
