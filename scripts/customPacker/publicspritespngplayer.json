@@ -6,5 +6,6 @@
   "public/sprites/png/player/jumping.png",
   "public/sprites/png/player/climbin-1.png",
   "public/sprites/png/player/climbin-2.png",
-  "public/sprites/png/player/climbin-idle.png"
+  "public/sprites/png/player/climbin-idle.png",
+  "public/sprites/png/player/sliding.png"
 ]

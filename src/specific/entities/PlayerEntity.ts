@@ -47,6 +47,9 @@ export default class PlayerEntity extends Entity {
         case PlayerStates.CLIMBING_IDLE:
           this.animator.setAnimation(C.PLAYER_CLIMBING_IDLE)
           break;
+        case PlayerStates.SLIDING:
+          this.animator.setAnimation(C.PLAYER_SLIDING_ANIM)
+          break;
       }
     }))
   }

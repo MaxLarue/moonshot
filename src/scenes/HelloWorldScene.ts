@@ -27,6 +27,9 @@ export default class HelloWorldScene extends BaseScene {
     this.addEntity(
       new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(410, 362), new Vec2(418, 560)), [])
     )
+    this.addEntity(
+      new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(2490, 156), new Vec2(2497, 1216)), [])
+    )
     this.addEntity(new TilemapEntity(this, {
       dataKey: "level1",
       tileSetName: "building",
@@ -36,6 +39,10 @@ export default class HelloWorldScene extends BaseScene {
     this.addEntity(new SlidingEntity(this, {
       from: new Vec2(496, 304),
       to: new Vec2(975.5, 559.5)
+    }, []))
+    this.addEntity(new SlidingEntity(this, {
+      to: new Vec2(2512, 79),
+      from: new Vec2(1071, 559.5)
     }, []))
     const collisionMatrix = _.fromPairs(_.zip(C.PHYSIC_LAYERS, C.PHYSIC_LAYERS.map(() => ({}))))
     collisionMatrix[C.PLAYER_PHYSIC_LAYER][C.PLAYER_PHYSIC_LAYER] = true
