@@ -1,6 +1,7 @@
 - finishing the grapple
     - create grapple state for player ? (or find a way to avoid interacting with ladders and tyrol while being grappled)
     - change unhooked grapple sprite, looks too complicated
+    - add a cooldown to avoid infinite grappling
 - background
     - check best way to handle multi layer parallax (and tile it somehow)
     - create background resources
