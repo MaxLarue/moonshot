@@ -35,22 +35,26 @@ export default class ClimbableZoneDetector extends ZoneTrigger {
   public get right() {return this._right}
 
   public onEntityEnter(entity: Entity) {
-    this.hooked.set(entity)
-    this.previousController = entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
-    const playerEntity = entity as PlayerEntity
-    const newController = new PlayerClimbingController(entity, [], playerEntity.stateMachine, this)
-    playerEntity.addComponent(newController)
-    newController.create()
-    playerEntity.stateMachine.transitionTo(PlayerStates.CLIMBING)
-    playerEntity.isFacingRight.set(!this._right)
+    if (entity.hasTag(tags.PLAYER_ENTITY)) {
+      this.hooked.set(entity)
+      this.previousController = entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
+      const playerEntity = entity as PlayerEntity
+      const newController = new PlayerClimbingController(entity, [], playerEntity.stateMachine, this)
+      playerEntity.addComponent(newController)
+      newController.create()
+      playerEntity.stateMachine.transitionTo(PlayerStates.CLIMBING)
+      playerEntity.isFacingRight.set(!this._right)
+    }
   }
 
   public onEntityLeave(entity: Entity) {
-    this.hooked.set(null)
-    entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
-    if (this.previousController) {
-      entity.addComponent(this.previousController)
+    if (entity.hasTag(tags.PLAYER_ENTITY)) {
+      this.hooked.set(null)
+      entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
+      if (this.previousController) {
+        entity.addComponent(this.previousController)
+      }
+      (entity as PlayerEntity).stateMachine.transitionTo(PlayerStates.IN_AIR)
     }
-    (entity as PlayerEntity).stateMachine.transitionTo(PlayerStates.IN_AIR)
   }
 }

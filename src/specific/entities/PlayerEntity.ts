@@ -10,6 +10,7 @@ import {FListener, LiveData} from "gameutils"
 import PlayerAnimator from '../components/PlayerAnimator';
 import PlayerStateMachine, { PlayerStates } from "../stateMachines/PlayerStateMachine"
 import RendererComponent from '~/common/components/RendererComponent';
+import GrappleCapacity from '../components/GrappleCapacity';
 
 export default class PlayerEntity extends Entity {
   protected _isFacingRight: LiveData<boolean> = new LiveData<boolean>(true)
@@ -30,6 +31,7 @@ export default class PlayerEntity extends Entity {
       animations: C.PLAYER_ANIMATIONS
     }, [tags.PLAYER_COMPONENT_TAG], this._isFacingRight)
     this.addComponent(this.animator)
+    this.addComponent(new GrappleCapacity(this, [tags.PLAYER_COMPONENT_TAG]))
 
     this._stateMachine.subscribe(new FListener((transition) => {
       switch(transition.to) {

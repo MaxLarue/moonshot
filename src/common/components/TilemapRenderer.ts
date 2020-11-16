@@ -102,7 +102,10 @@ export default class TilemapRenderer extends BaseComponent {
   public addCollider(gameobject: Phaser.GameObjects.GameObject) {
     const layer = this.layers[TilemapLayerNames.Terrain]
     if (layer) {
-      this.entity.scene.physics.add.collider(layer, gameobject)
+      this.entity.scene.physics.add.collider(layer, gameobject, obj => {
+        if (obj.getData(C.GAME_OBJECT_COMPONENT_HANDLE))
+          obj.getData(C.GAME_OBJECT_COMPONENT_HANDLE).onCollide(this.entity)
+      })
     }
   }
 

@@ -43,6 +43,11 @@ export default class BaseScene extends Phaser.Scene {
     return this._systems[name] as T
   }
 
+  public removeEntity(entity: Entity) {
+    this.entities.delete(entity)
+    entity.delete()
+  }
+
   public preload() {}
   public create() {
     this.scale.setZoom(2)

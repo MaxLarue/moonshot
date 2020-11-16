@@ -5,8 +5,6 @@ import _ from "lodash"
 import TilemapEntity from '~/common/entities/TilemapEntity';
 import PlayerEntity from "../specific/entities/PlayerEntity"
 import PhysicSystem from '~/common/systems/PhysicSystem';
-import Entity from '~/general/Entity';
-import ZoneDetector from '~/common/components/ZoneDetector';
 import { Rect, Vec2 } from 'gameutils';
 import ClimbableEntity from '~/specific/entities/ClimbableEntity';
 import SlidingEntity from '~/specific/entities/SlidingEntity';
@@ -20,6 +18,7 @@ export default class HelloWorldScene extends BaseScene {
 	preload() {
     this.load.image('gameTiles', 'sprites/spritesheets/building-ex.png');
     this.load.atlas('player', 'sprites/spritesheets/player.png', 'sprites/spritesheets/player.json')
+    this.load.atlas('grapple', 'sprites/spritesheets/grapple.png', 'sprites/spritesheets/grapple.json')
     this.load.tilemapTiledJSON('level1', 'maps/testmap.json');
   }
 

@@ -59,7 +59,7 @@ export default class BodyComponent extends BaseComponent {
     }
   }
 
-  public onCollide(other: BodyComponent) {}
+  public onCollide(other: Entity) {}
 
   create(): void {
     const renderer = this.entity.getComponentByTag<RendererComponent>(tags.RENDERER_COMPONENT_TAG, RendererComponent)
@@ -73,6 +73,11 @@ export default class BodyComponent extends BaseComponent {
   }
 
   update(time: number, delta: number): void {}
-  delete(): void {}
+  delete(): void {
+    if (this._gameObject) {
+      this._gameObject.destroy()
+      this._gameObject = null
+    }
+  }
 
 }

@@ -25,20 +25,24 @@ export default class SlidingDetector extends ZoneTrigger {
   }
 
   public onEntityEnter(entity: Entity) {
-    this.previousController = entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
-    const playerEntity = entity as PlayerEntity
-    const newController = new PlayerSlidingController(entity, this, playerEntity.stateMachine, new Vec2(0, 2))
-    playerEntity.addComponent(newController)
-    newController.create()
-    playerEntity.stateMachine.transitionTo(PlayerStates.SLIDING)
+    if (entity.hasTag(tags.PLAYER_ENTITY)) {
+      this.previousController = entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
+      const playerEntity = entity as PlayerEntity
+      const newController = new PlayerSlidingController(entity, this, playerEntity.stateMachine, new Vec2(0, 2))
+      playerEntity.addComponent(newController)
+      newController.create()
+      playerEntity.stateMachine.transitionTo(PlayerStates.SLIDING)
+    }
   }
 
   public onEntityLeave(entity: Entity) {
-    entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
-    if (this.previousController) {
-      entity.addComponent(this.previousController)
+    if (entity.hasTag(tags.PLAYER_ENTITY)) {
+      entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
+      if (this.previousController) {
+        entity.addComponent(this.previousController)
+      }
+      (entity as PlayerEntity).stateMachine.transitionTo(PlayerStates.IN_AIR)
     }
-    (entity as PlayerEntity).stateMachine.transitionTo(PlayerStates.IN_AIR)
   }
 
   onObjectIsIn(body: BodyComponent) {

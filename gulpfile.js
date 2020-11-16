@@ -17,6 +17,7 @@ const tiles = [
 
 const sprites = [
     {name: "player"},
+    {name: "grapple"},
 ]
 
 function createDir(cb, path) {

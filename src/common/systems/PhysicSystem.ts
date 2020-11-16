@@ -1,7 +1,10 @@
+import * as C from "../constants"
+import * as tags from "../tags"
 import { Rect } from 'gameutils';
 import BaseScene from '~/general/BaseScene';
 import BaseSystem from '~/general/BaseSystem';
 import BodyComponent from '../components/BodyComponent';
+import Entity from '~/general/Entity';
 
 export type CollisionMatrix = Record<string, Record<string, Phaser.Physics.Arcade.Group>>
 
@@ -21,6 +24,15 @@ export default class PhysicSystem extends BaseSystem {
           this.scene.physics.add.collider(
             this.layers[outerLayerName],
             this.layers[innerLayerName],
+            (obj1, obj2) => {
+              console.log(obj1, obj2)
+              if (obj1.getData(C.GAME_OBJECT_COMPONENT_HANDLE) && obj2.getData(C.GAME_OBJECT_COMPONENT_HANDLE)) {
+                const body1 = (obj1.getData(C.GAME_OBJECT_COMPONENT_HANDLE) as BodyComponent)
+                const body2 = (obj2.getData(C.GAME_OBJECT_COMPONENT_HANDLE) as BodyComponent)
+                body2.onCollide(body1.entity)
+                body1.onCollide(body2.entity)
+              }
+            }
           )
         }
       }

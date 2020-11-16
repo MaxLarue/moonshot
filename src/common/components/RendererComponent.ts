@@ -31,8 +31,14 @@ export default class RendererComponent extends BaseComponent {
   create(): void {
     const body = this.entity.getComponentByTag<BodyComponent>(tags.BODY_COMPONENT_TAG, BodyComponent)
     this._sprite = this.entity.scene.add.sprite(body.initialX, body.initialY, this.spriteSheetKey, this.defaultAnim)
+    this._sprite.setOrigin(0.5, 0.5)
   }
   update(time: number, delta: number): void {}
-  delete(): void {}
+  delete(): void {
+    if (this._sprite) {
+      this._sprite.destroy()
+      this._sprite = null
+    }
+  }
 
 }
