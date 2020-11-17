@@ -11,7 +11,7 @@ export interface RendererComponentOptions {
 export default class RendererComponent extends BaseComponent {
   protected spriteSheetKey: string
   protected defaultAnim: string
-  private _sprite: Phaser.GameObjects.Sprite | null;
+  protected _sprite: Phaser.GameObjects.Sprite | null;
   
   public get sprite(): Phaser.GameObjects.Sprite {
     if (this._sprite) {

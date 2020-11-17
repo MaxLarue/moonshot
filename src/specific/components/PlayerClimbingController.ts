@@ -1,11 +1,13 @@
 import * as tags from "../tags"
 import * as commonTags from "../../common/tags"
+import * as commonC from "../../common/constants"
 import BodyComponent from '~/common/components/BodyComponent';
 import BaseComponent from '~/general/BaseComponent';
 import Entity from '~/general/Entity';
 import PlayerStateMachine, { PlayerStates } from '../stateMachines/PlayerStateMachine';
 import PlayerEntity from '../entities/PlayerEntity';
 import ClimbableZoneDetector from './ClimbableZoneDetector';
+import InputSystem from '~/common/systems/InputSystem';
 
 export default class PlayerClimbingController extends BaseComponent {
   protected _cursors: Phaser.Types.Input.Keyboard.CursorKeys | null
@@ -22,7 +24,7 @@ export default class PlayerClimbingController extends BaseComponent {
   }
 
   create(): void {
-    this._cursors = this.entity.scene.input.keyboard.createCursorKeys()
+    this._cursors = this.entity.scene.getSystemByName<InputSystem>(commonC.INPUT_SYSTEM_NAME).getMovementCursor()
     this._playerBody = this.entity
       .getComponentByTag<BodyComponent>(commonTags.BODY_COMPONENT_TAG, BodyComponent)
   }

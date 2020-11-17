@@ -1,6 +1,7 @@
 import * as tags from "../tags"
 import * as commonTags from "../../common/tags"
 import * as C from "../constants"
+import * as commonC from "../../common/constants"
 import BaseComponent from '~/general/BaseComponent';
 import Entity from '~/general/Entity';
 import PlayerStateMachine from '../stateMachines/PlayerStateMachine';
@@ -8,6 +9,7 @@ import SlidingDetector from './SlidingDetector';
 import BodyComponent from '~/common/components/BodyComponent';
 import PlayerEntity from '../entities/PlayerEntity';
 import { Vec2 } from 'gameutils';
+import InputSystem from '~/common/systems/InputSystem';
 
 
 export default class PlayerSlidingController extends BaseComponent {
@@ -32,7 +34,7 @@ export default class PlayerSlidingController extends BaseComponent {
   }
 
   create(): void {
-    this._cursors = this.entity.scene.input.keyboard.createCursorKeys();
+    this._cursors = this.entity.scene.getSystemByName<InputSystem>(commonC.INPUT_SYSTEM_NAME).getMovementCursor();
     (this.entity as PlayerEntity).isFacingRight.set(this._goingRight)
     if (this._goingRight) this._playerBody.body.position.x += this._offset.x
     else this._playerBody.body.position.x -= this._offset.x

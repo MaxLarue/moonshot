@@ -35,7 +35,9 @@ export default class GrappleFlyingController extends BaseComponent {
     const maxDst = this._maxDst * this._maxDst
     const dst = body.center.sub(this._launcherBody.center).sqLen()
 
-    if (dst > maxDst) this.entity.scene.removeEntity(this.entity)
+    if (dst > maxDst) {
+      this.entity.scene.removeEntity(this.entity)
+    }
 
   }
   delete(): void {}

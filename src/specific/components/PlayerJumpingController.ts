@@ -1,10 +1,12 @@
 import * as commonTags from "../../common/tags"
 import * as tags from "../tags"
+import * as commonC from "../../common/constants"
 import BaseComponent from '~/general/BaseComponent'
 import Entity from '~/general/Entity';
 import BodyComponent from "../../common/components/BodyComponent"
 import { LiveData } from 'gameutils';
 import PlayerStateMachine, { PlayerStates } from '../stateMachines/PlayerStateMachine';
+import InputSystem from '~/common/systems/InputSystem';
 
 
 export default class PlayerController extends BaseComponent {
@@ -22,7 +24,7 @@ export default class PlayerController extends BaseComponent {
   }
 
   create(): void {
-    this._cursors = this.entity.scene.input.keyboard.createCursorKeys()
+    this._cursors = this.entity.scene.getSystemByName<InputSystem>(commonC.INPUT_SYSTEM_NAME).getMovementCursor()
     this._playerBody = this.entity.getComponentByTag<BodyComponent>(commonTags.BODY_COMPONENT_TAG, BodyComponent)
   }
   update(time: number, delta: number): void {
@@ -37,13 +39,16 @@ export default class PlayerController extends BaseComponent {
     if (this._playerBody?.body) {
       const {x, y} = this._playerBody.body.velocity
       if (y !== 0 && this.playerState.getState() !== PlayerStates.IN_AIR) {
-        this.playerState.transitionTo(PlayerStates.IN_AIR)
+        if (this.playerState.canTransitionTo(PlayerStates.IN_AIR))
+          this.playerState.transitionTo(PlayerStates.IN_AIR)
       } 
       if (x !== 0 && y === 0 && this.playerState.getState() !== PlayerStates.RUNNING) {
-        this.playerState.transitionTo(PlayerStates.RUNNING)
+        if (this.playerState.canTransitionTo(PlayerStates.RUNNING))
+          this.playerState.transitionTo(PlayerStates.RUNNING)
       }
       if (x === 0 && y === 0 && this.playerState.getState() !== PlayerStates.IDLE) {
-        this.playerState.transitionTo(PlayerStates.IDLE)
+        if (this.playerState.canTransitionTo(PlayerStates.IDLE))
+          this.playerState.transitionTo(PlayerStates.IDLE)
       }
     }
   }

@@ -14,14 +14,24 @@ const tiles = [
     {name: "building"},
 ]
 
-
 const sprites = [
     {name: "player"},
     {name: "grapple"},
 ]
 
+const raw = [
+    {name: "backgrounds"}
+]
+
 function createDir(cb, path) {
     fs.mkdir(path, {recursive: true}, cb)
+}
+
+function copyDir(cb, from, to) {
+    const cmd = `cp -r ${from} ${to}`
+    exec.exec(cmd, function(err, stdout, stderr) {
+        cb(err)
+    })
 }
 
 function exportToPng(cb, spriteKey) {
@@ -130,6 +140,25 @@ function makeSpritesTaks() {
     return parallel(...tasks)
 }
 
+function makeRawTasks() {
+    const tasks = raw.map(raw => series(
+        expandTask(
+            cb => createDir(cb, path.join(basePngSprites, raw.name)),
+            `Ensure png dir exists`,
+            raw.name),
+        expandTask(
+            cb => exportToPng(cb, raw.name),
+            `Export to png`,
+            raw.name),
+        expandTask(
+            cb => copyDir(cb, path.join(basePngSprites, raw.name), path.join(baseSpriteSheets, raw.name)),
+            `copy to sprite directory`,
+            raw.name
+        )
+    ))
+    return parallel(...tasks)
+}
+
 const clean = parallel(cleanPng, cleanSpriteSheets);
 exports.clean = clean
-exports.default = series(clean, parallel(makeTilesTasks(), makeSpritesTaks()))
+exports.default = series(clean, parallel(makeTilesTasks(), makeSpritesTaks(), makeRawTasks()))

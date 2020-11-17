@@ -36,25 +36,33 @@ export default class ClimbableZoneDetector extends ZoneTrigger {
 
   public onEntityEnter(entity: Entity) {
     if (entity.hasTag(tags.PLAYER_ENTITY)) {
-      this.hooked.set(entity)
-      this.previousController = entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
-      const playerEntity = entity as PlayerEntity
-      const newController = new PlayerClimbingController(entity, [], playerEntity.stateMachine, this)
-      playerEntity.addComponent(newController)
-      newController.create()
-      playerEntity.stateMachine.transitionTo(PlayerStates.CLIMBING)
-      playerEntity.isFacingRight.set(!this._right)
+      this.hookEntity(entity)
     }
   }
 
   public onEntityLeave(entity: Entity) {
-    if (entity.hasTag(tags.PLAYER_ENTITY)) {
-      this.hooked.set(null)
-      entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
-      if (this.previousController) {
-        entity.addComponent(this.previousController)
-      }
-      (entity as PlayerEntity).stateMachine.transitionTo(PlayerStates.IN_AIR)
+    if (entity.hasTag(tags.PLAYER_ENTITY) && entity === this.hooked.get()) {
+      this.unhookEntity(entity)
     }
+  }
+
+  protected hookEntity(entity: Entity) {
+    this.hooked.set(entity)
+    this.previousController = entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
+    const playerEntity = entity as PlayerEntity
+    const newController = new PlayerClimbingController(entity, [], playerEntity.stateMachine, this)
+    playerEntity.addComponent(newController)
+    newController.create()
+    playerEntity.stateMachine.transitionTo(PlayerStates.CLIMBING)
+    playerEntity.isFacingRight.set(!this._right)
+  }
+
+  protected unhookEntity(entity: Entity) {
+    this.hooked.set(null)
+    entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
+    if (this.previousController) {
+      entity.addComponent(this.previousController)
+    }
+    (entity as PlayerEntity).stateMachine.transitionTo(PlayerStates.IN_AIR)
   }
 }

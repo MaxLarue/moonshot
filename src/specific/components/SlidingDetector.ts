@@ -16,33 +16,49 @@ export default class SlidingDetector extends ZoneTrigger {
   protected _line: Line
   protected previousController: IComponent | null
   protected _hitBoxOffset: Rect | null
+  protected _slidingEntity: Entity | null
 
   constructor(entity: Entity, line: Line, extraTags: string[], hitBoxOffset?: Rect) {
     super(entity, line.rec, extraTags)
     this._line = line
     this.previousController = null
     this._hitBoxOffset = hitBoxOffset || null
+    this._slidingEntity = null
   }
 
   public onEntityEnter(entity: Entity) {
     if (entity.hasTag(tags.PLAYER_ENTITY)) {
-      this.previousController = entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
-      const playerEntity = entity as PlayerEntity
-      const newController = new PlayerSlidingController(entity, this, playerEntity.stateMachine, new Vec2(0, 2))
-      playerEntity.addComponent(newController)
-      newController.create()
-      playerEntity.stateMachine.transitionTo(PlayerStates.SLIDING)
+      const asPlayer = entity as PlayerEntity
+      if (asPlayer.stateMachine.canTransitionTo(PlayerStates.SLIDING)) {
+        this._slidingEntity = entity
+        this.makeEntitySlide(entity)
+        asPlayer.stateMachine.transitionTo(PlayerStates.SLIDING)
+      }
     }
   }
 
   public onEntityLeave(entity: Entity) {
-    if (entity.hasTag(tags.PLAYER_ENTITY)) {
-      entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
-      if (this.previousController) {
-        entity.addComponent(this.previousController)
-      }
-      (entity as PlayerEntity).stateMachine.transitionTo(PlayerStates.IN_AIR)
+    if (entity.hasTag(tags.PLAYER_ENTITY) && this._slidingEntity === entity) {
+      this.onEntityDoneSliding(entity)
+      this._slidingEntity = null
     }
+  }
+
+  protected makeEntitySlide(entity: Entity) {
+    this.previousController = entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
+    const playerEntity = entity as PlayerEntity
+    const newController = new PlayerSlidingController(entity, this, playerEntity.stateMachine, new Vec2(0, 2))
+    playerEntity.addComponent(newController)
+    newController.create()
+  }
+
+  protected onEntityDoneSliding(entity: Entity) {
+    entity.popComponentByTag(tags.PLAYER_CONTROLLER_COMPONENT, BaseComponent)
+    if (this.previousController) {
+      entity.addComponent(this.previousController)
+      this.previousController = null
+    }
+    (entity as PlayerEntity).stateMachine.transitionTo(PlayerStates.IN_AIR)
   }
 
   onObjectIsIn(body: BodyComponent) {

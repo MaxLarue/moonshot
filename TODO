@@ -1,18 +1,11 @@
-- finishing the grapple
-    - create grapple state for player ? (or find a way to avoid interacting with ladders and tyrol while being grappled)
-    - change unhooked grapple sprite, looks too complicated
-    - add a cooldown to avoid infinite grappling
 - background
-    - check best way to handle multi layer parallax (and tile it somehow)
-    - create background resources
-    - display background resources (no parallax)
-    - add parallax
+    - pad background sprites so they are power of 2
 - gameover
     - create gameover screen
     - detect player falling
     - transition
 - real levels
-    - desing menu screen
+    - design menu screen
     - implement the first level
     - implement end screen
 - prettier
@@ -21,6 +14,9 @@
 - funnier
     - create runner phases (you have to go at a minimum speed which then increases)
     - collect points (gold?)
+    - superman mode
+- other
+    - allow to remap keyboard (or at least avoid arrow keys)
 - code improvements
     - special components for state ? (like the fsm and few values such as isFacingRight)
     - snippet to create components

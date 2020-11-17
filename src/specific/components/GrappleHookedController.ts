@@ -2,6 +2,8 @@ import * as commonTags from "../../common/tags"
 import BodyComponent from '~/common/components/BodyComponent';
 import BaseComponent from '~/general/BaseComponent';
 import Entity from '~/general/Entity';
+import PlayerEntity from '../entities/PlayerEntity';
+import { PlayerStates } from '../stateMachines/PlayerStateMachine';
 
 export interface GrappleHookedControllerOptions {
   minDst?: number
@@ -30,7 +32,12 @@ export default class GrappleHookedController extends BaseComponent {
 
     if (this._body) {
       const dst = this._body?.center.sub(this._launcherBody.center).sqLen()
-      if (dst < this._minDst * this._minDst) this.entity.scene.removeEntity(this.entity)
+      if (dst < this._minDst * this._minDst) {
+        const player = this._launcherBody.entity as PlayerEntity
+        if (player.stateMachine.canTransitionTo(PlayerStates.IDLE))
+          player.stateMachine.transitionTo(PlayerStates.IDLE)
+        this.entity.scene.removeEntity(this.entity)
+      }
       else {
         const speed = this._body?.center.sub(this._launcherBody.center).unit().mul(this._speed)
         this._launcherBody.body.setVelocity(speed.x, speed.y)

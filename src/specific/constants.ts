@@ -1,5 +1,3 @@
-import * as common from "../common/constants"
-
 export const PLAYER_SPRITESHEET = "player"
 export const PLAYER_IDLE_ANIM = 'still'
 export const PLAYER_JUMPING_ANIM = 'jumping'
