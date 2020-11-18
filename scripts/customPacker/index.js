@@ -10,7 +10,7 @@ const writeFile = promisify(fs.writeFile)
 const readFile = promisify(fs.readFile)
 
 const DEFAULTS = {
-    tileSize: 32,
+    tileSize: {x: 32, y: 32},
     baseWidthInNbOfTiles: 10,
     sourceExtension: "png"
 }
@@ -86,7 +86,7 @@ async function packageSprites(spritePaths, order, options) {
     const columns = options.baseWidthInNbOfTiles
     const size = options.tileSize
     const rows = Math.ceil(count / columns)
-    const canvas = createCanvas(size * columns, size * rows)
+    const canvas = createCanvas(size.x * columns, size.y * rows)
     const ctx = canvas.getContext('2d')
     const proms = []
     let currentIndex = -1
@@ -99,10 +99,10 @@ async function packageSprites(spritePaths, order, options) {
             // console.log(order[currentIndex], x, y)
             proms.push(
                 loadImage(order[currentIndex])
-                    .then(image => ctx.drawImage(image, x * size, y * size))
+                    .then(image => ctx.drawImage(image, x * size.x, y * size.y))
             )
             metadata[getFileName((order[currentIndex]))] = {
-                frame: {x: x * size, y: y * size, w: size, h: size}
+                frame: {x: x * size.x, y: y * size.y, w: size.x, h: size.y}
             }
         }
     }

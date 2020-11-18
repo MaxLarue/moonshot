@@ -67,9 +67,11 @@ export default class BodyComponent extends BaseComponent {
     this._gameObject.setData(C.GAME_OBJECT_COMPONENT_HANDLE, this)
     this.entity.scene.getSystemByName<PhysicSystem>(C.PHYSIC_SYSTEM_NAME)
       .addComponentToLayer(this, this.layer)
-    this.entity.scene.getEntityByTag(tags.TILEMAP_ENTITY_TAG)
-      .getComponentByTag<TilemapRenderer>(tags.TILEMAP_COMPONENT_TAG, TilemapRenderer)
-      .addCollider(this.gameObject)
+    if (this.entity.scene.getEntitiesByTag(tags.TILEMAP_ENTITY_TAG).length) {
+      this.entity.scene.getEntityByTag(tags.TILEMAP_ENTITY_TAG)
+        .getComponentByTag<TilemapRenderer>(tags.TILEMAP_COMPONENT_TAG, TilemapRenderer)
+        .addCollider(this.gameObject)
+    }
   }
 
   update(time: number, delta: number): void {}

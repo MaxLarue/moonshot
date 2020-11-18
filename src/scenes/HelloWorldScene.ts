@@ -10,6 +10,7 @@ import ClimbableEntity from '~/specific/entities/ClimbableEntity';
 import SlidingEntity from '~/specific/entities/SlidingEntity';
 import InputSystem from '~/common/systems/InputSystem';
 import ParallaxBackground from '~/common/entities/ParallaxBackground';
+import GameOverDetector from '~/specific/entities/GameOverDetector';
 
 export default class HelloWorldScene extends BaseScene {
   
@@ -30,6 +31,7 @@ export default class HelloWorldScene extends BaseScene {
   }
 
   create() {
+    this._clear()
     this.addEntity(new ParallaxBackground(this))
     this.addEntity(
       new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(410, 362), new Vec2(418, 560)), [])
@@ -51,6 +53,7 @@ export default class HelloWorldScene extends BaseScene {
       to: new Vec2(2512, 79),
       from: new Vec2(1071, 559.5)
     }, []))
+    this.addEntity(new GameOverDetector(this))
     const collisionMatrix = _.fromPairs(_.zip(C.PHYSIC_LAYERS, C.PHYSIC_LAYERS.map(() => ({}))))
     collisionMatrix[C.PLAYER_PHYSIC_LAYER][C.PLAYER_PHYSIC_LAYER] = true
     this.addSystem(commonC.PHYSIC_SYSTEM_NAME, new PhysicSystem(this, C.PHYSIC_LAYERS, collisionMatrix))

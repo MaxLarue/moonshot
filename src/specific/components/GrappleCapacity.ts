@@ -31,7 +31,7 @@ export default class GrappleCapacity extends BaseComponent {
   }
   update(time: number, delta: number): void {this._cooldown.addDelta(delta)}
   delete(): void {
-    this._input?.destroy()
+    this._input = null
   }
 
   protected getClickPos(): Vec2 {

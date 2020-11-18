@@ -32,7 +32,7 @@ export default class PlayerController extends BaseComponent {
     this.handleStateChange()
   }
   delete(): void {
-    
+    this._cursors = null
   }
 
   protected handleStateChange() {

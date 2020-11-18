@@ -2,7 +2,7 @@ import * as tags from "../tags"
 import * as C from "../constants"
 import BaseComponent from '../../general/BaseComponent';
 import Entity from '../../general/Entity';
-import PhysicSystem from '../systems/PhysicSystem';
+import _ from "lodash"
 
 
 export enum TilemapLayerNames {
@@ -81,7 +81,15 @@ export default class TilemapRenderer extends BaseComponent {
     
   }
   update(time: number, delta: number): void {}
-  delete(): void {}
+  delete(): void {
+    for (const layer of _.values(this.layers)) {
+      layer?.destroy()
+    }
+    this.layers = {}
+    if (this._map) {
+      this._map.destroy()
+    }
+  }
 
   public get tileSize(): number {
     return this._tileSize;

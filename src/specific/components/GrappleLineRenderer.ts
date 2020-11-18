@@ -40,7 +40,10 @@ export default class GrappleRenderer extends BaseComponent {
   }
 
   delete() {
-    if (this.line) this.line.destroy()
+    if (this.line) {
+      this.line.destroy()
+      this.line = null
+    }
   }
 
   public get from() {

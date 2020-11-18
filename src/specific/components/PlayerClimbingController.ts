@@ -57,7 +57,7 @@ export default class PlayerClimbingController extends BaseComponent {
     }
   }
   delete(): void {
-    
+    this._cursors = null
   }
 
 }

@@ -17,10 +17,11 @@ const tiles = [
 const sprites = [
     {name: "player"},
     {name: "grapple"},
+    {name: "button", spriteSize: {x: 100, y: 33}}
 ]
 
 const raw = [
-    {name: "backgrounds"}
+    {name: "backgrounds"},
 ]
 
 function createDir(cb, path) {
@@ -44,7 +45,7 @@ function exportToPng(cb, spriteKey) {
     });
 }
 
-function packageSprites(cb, spriteKey) {
+function packageSprites(cb, spriteKey, spriteSize) {
     const sourceFolder = path.join(basePngSprites, spriteKey)
     const targetSpriteSheet = path.join(baseSpriteSheets, spriteKey + ".png")
     const targetMetadata = path.join(baseSpriteSheets, spriteKey + ".json")
@@ -52,6 +53,7 @@ function packageSprites(cb, spriteKey) {
         sourceDirectory: sourceFolder,
         targetFile: targetSpriteSheet,
         targetDataFile: targetMetadata,
+        tileSize: spriteSize
     })
     .then(() => cb())
     .catch(err => cb(err))
@@ -133,7 +135,7 @@ function makeSpritesTaks() {
             `Export to png`,
             sprite.name),
         expandTask(
-            cb => packageSprites(cb, sprite.name),
+            cb => packageSprites(cb, sprite.name, sprite.spriteSize),
             `Package into spritesheet`,
             sprite.name),
     ))

@@ -1,10 +1,9 @@
 import * as C from "../constants"
-import * as tags from "../tags"
 import { Rect } from 'gameutils';
 import BaseScene from '~/general/BaseScene';
 import BaseSystem from '~/general/BaseSystem';
 import BodyComponent from '../components/BodyComponent';
-import Entity from '~/general/Entity';
+import _ from "lodash"
 
 export type CollisionMatrix = Record<string, Record<string, Phaser.Physics.Arcade.Group>>
 
@@ -25,7 +24,6 @@ export default class PhysicSystem extends BaseSystem {
             this.layers[outerLayerName],
             this.layers[innerLayerName],
             (obj1, obj2) => {
-              console.log(obj1, obj2)
               if (obj1.getData(C.GAME_OBJECT_COMPONENT_HANDLE) && obj2.getData(C.GAME_OBJECT_COMPONENT_HANDLE)) {
                 const body1 = (obj1.getData(C.GAME_OBJECT_COMPONENT_HANDLE) as BodyComponent)
                 const body2 = (obj2.getData(C.GAME_OBJECT_COMPONENT_HANDLE) as BodyComponent)
@@ -50,6 +48,14 @@ export default class PhysicSystem extends BaseSystem {
 
   public getGameObjectsInZone(rect: Rect) {
     return this.scene.physics.overlapRect(rect.x, rect.y, rect.w, rect.h)
+  }
+
+  public delete(): void {
+    for (const layer of _.values(this.layers)) {
+      layer.destroy()
+    }
+    this.layers = {}
+    super.delete()
   }
 
 }

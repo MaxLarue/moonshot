@@ -1,9 +1,3 @@
-- background
-    - pad background sprites so they are power of 2
-- gameover
-    - create gameover screen
-    - detect player falling
-    - transition
 - real levels
     - design menu screen
     - implement the first level
@@ -17,6 +11,9 @@
     - superman mode
 - other
     - allow to remap keyboard (or at least avoid arrow keys)
+- bugs
+    - it is possible to fly when grappling while holding up
 - code improvements
     - special components for state ? (like the fsm and few values such as isFacingRight)
     - snippet to create components
+    - fix background looking blurry

@@ -70,7 +70,7 @@ export default class PlayerSlidingController extends BaseComponent {
   }
 
   delete(): void {
-    
+    this._cursors = null
   }
 
 }

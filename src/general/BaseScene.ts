@@ -48,6 +48,11 @@ export default class BaseScene extends Phaser.Scene {
     entity.delete()
   }
 
+  public transition(name: string) {
+    // this._clear()
+    this.scene.start(name)
+  }
+
   public preload() {}
   public create() {
     this.scale.setZoom(2)
@@ -63,9 +68,14 @@ export default class BaseScene extends Phaser.Scene {
   public update(time, delta) {
     this.entities.forEach(e => e.update(time, delta))
   }
-  public stop() {
+  public _clear() {
     this.entities.forEach(e => e.delete())
     this.entities = new Set()
+    for (const system of _.values(this._systems)) {
+      system.delete()
+    }
+    this._systems = {}
+    console.log("scene was cleared")
   }
 
 }
