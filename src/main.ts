@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import * as C from "./constants"
 
+import MenuScene from "./scenes/Menu"
 import HelloWorldScene from './scenes/HelloWorldScene'
 import GameOverScene from "./scenes/GameOver"
 
@@ -21,8 +22,9 @@ const config: Phaser.Types.Core.GameConfig = {
 		}
 	},
 	scene: [
-		GameOverScene,
+		MenuScene,
 		HelloWorldScene,
+		GameOverScene,
 	]
 }
 

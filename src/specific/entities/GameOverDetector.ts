@@ -1,4 +1,5 @@
 import * as tags from "../tags"
+import * as generalC from "../../constants"
 import BodyComponent from '~/common/components/BodyComponent';
 import ZoneDetector from '~/common/components/ZoneDetector';
 import BaseScene from '~/general/BaseScene';
@@ -8,7 +9,7 @@ import { Rect } from 'gameutils';
 export class GameOverZoneDetector extends ZoneDetector {
   public onObjectIsIn(body: BodyComponent) {
     if (body.entity.hasTag(tags.PLAYER_ENTITY)) {
-      this.entity.scene.transition("gameover")
+      this.entity.scene.transition(generalC.GAMEOVER_SCENE_NAME)
     }
   }
 }

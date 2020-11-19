@@ -1,4 +1,5 @@
 import * as C from "../specific/constants"
+import * as generalC from "../constants"
 import * as commonC from "../common/constants"
 import * as rootC from "../constants"
 import Button from '~/common/entities/Button';
@@ -15,7 +16,7 @@ export class RetryButton extends Button {
 
 export default class GameOverScene extends BaseScene {
   constructor() {
-    super("gameover")
+    super(generalC.GAMEOVER_SCENE_NAME)
   }
 
   preload() {

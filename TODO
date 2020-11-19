@@ -1,5 +1,4 @@
 - real levels
-    - design menu screen
     - implement the first level
     - implement end screen
 - prettier
@@ -17,3 +16,4 @@
     - special components for state ? (like the fsm and few values such as isFacingRight)
     - snippet to create components
     - fix background looking blurry
+    - move common setup to a base class for scenes (ui, systems, etc...)

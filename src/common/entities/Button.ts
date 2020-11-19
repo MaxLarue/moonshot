@@ -7,7 +7,7 @@ import TextComponent from '../components/TextComponent';
 import Animator from '../components/Animator';
 
 export interface ButtonOptions {
-  sprite: string
+  sprite?: string
   x: number,
   y: number,
   text: string,
@@ -24,7 +24,7 @@ export default abstract class Button extends Entity {
 
 
     this.renderer = new RendererComponent(this, {
-      spriteSheetKey: options.sprite,
+      spriteSheetKey: options.sprite || 'button',
       defaultAnim: 'button'
     }, [])
     this.addComponent(this.renderer)
