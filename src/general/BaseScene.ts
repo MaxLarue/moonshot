@@ -64,9 +64,11 @@ export default class BaseScene extends Phaser.Scene {
         console.log(pos.add(cameraPos))
       }
     })
+    _.values(this._systems).map(s => s.create())
   }
   public update(time, delta) {
     this.entities.forEach(e => e.update(time, delta))
+    _.values(this._systems).map(s => s.update(time, delta))
   }
   public _clear() {
     this.entities.forEach(e => e.delete())

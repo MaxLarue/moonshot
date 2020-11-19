@@ -10,7 +10,7 @@ import _ from "lodash"
 
 export class RetryButton extends Button {
   public onClick() {
-    this.scene.transition("hello-world")
+    this.scene.transition(rootC.LEVEL1_SCENE_NAME)
   }
 }
 

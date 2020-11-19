@@ -1,3 +1,5 @@
+- gameobjects generation
+    - generate climbable entity from ladder sprites
 - real levels
     - implement the first level
     - implement end screen

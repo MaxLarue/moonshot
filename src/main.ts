@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 import * as C from "./constants"
 
 import MenuScene from "./scenes/Menu"
-import HelloWorldScene from './scenes/HelloWorldScene'
+import Level1 from './scenes/level1'
 import GameOverScene from "./scenes/GameOver"
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -23,7 +23,7 @@ const config: Phaser.Types.Core.GameConfig = {
 	},
 	scene: [
 		MenuScene,
-		HelloWorldScene,
+		Level1,
 		GameOverScene,
 	]
 }

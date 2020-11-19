@@ -31,7 +31,7 @@ export default class TilemapRenderer extends BaseComponent {
   private _tileSetSheetKey: string;
   private _map: Phaser.Tilemaps.Tilemap | null
   private _tileset: Phaser.Tilemaps.Tileset | null
-  private layers: Partial<Record<TilemapLayerNames, Phaser.Tilemaps.StaticTilemapLayer>>
+  private _layers: Partial<Record<TilemapLayerNames, Phaser.Tilemaps.StaticTilemapLayer>>
 
 
   constructor(entity: Entity, options: TilemapRendererOptions) {
@@ -40,7 +40,7 @@ export default class TilemapRenderer extends BaseComponent {
     this._tileSize = options.tileSize || 32
     this._tileSetName = options.tileSetName
     this._tileSetSheetKey = options.tileSetSheetKey
-    this.layers = {}
+    this._layers = {}
     this._map = null
     this._tileset = null
   }
@@ -55,37 +55,37 @@ export default class TilemapRenderer extends BaseComponent {
       1,
       2
     )
-    this.layers[TilemapLayerNames.Background] = this._map
+    this._layers[TilemapLayerNames.Background] = this._map
       .createStaticLayer(TilemapLayerNames.Background, this._tileset, 0, 0)
-    this.layers[TilemapLayerNames.BackgroundDetails] = this._map
+    this._layers[TilemapLayerNames.BackgroundDetails] = this._map
       .createStaticLayer(TilemapLayerNames.BackgroundDetails, this._tileset, 0, 0)
-    this.layers[TilemapLayerNames.BackgroundExtra] = this._map
+    this._layers[TilemapLayerNames.BackgroundExtra] = this._map
       .createStaticLayer(TilemapLayerNames.BackgroundExtra, this._tileset, 0, 0)
-    this.layers[TilemapLayerNames.Terrain] = this._map
+    this._layers[TilemapLayerNames.Terrain] = this._map
       .createStaticLayer(TilemapLayerNames.Terrain, this._tileset, 0, 0)
-    this.layers[TilemapLayerNames.TerrainDetails] = this._map
+    this._layers[TilemapLayerNames.TerrainDetails] = this._map
       .createStaticLayer(TilemapLayerNames.TerrainDetails, this._tileset, 0, 0)
-    this.layers[TilemapLayerNames.TerrainExtra] = this._map
+    this._layers[TilemapLayerNames.TerrainExtra] = this._map
       .createStaticLayer(TilemapLayerNames.TerrainExtra, this._tileset, 0, 0)
-    this.layers[TilemapLayerNames.Decorations] = this._map
+    this._layers[TilemapLayerNames.Decorations] = this._map
       .createStaticLayer(TilemapLayerNames.Decorations, this._tileset, 0, 0)
-    this.layers[TilemapLayerNames.DecorationsDetails] = this._map
+    this._layers[TilemapLayerNames.DecorationsDetails] = this._map
       .createStaticLayer(TilemapLayerNames.DecorationsDetails, this._tileset, 0, 0)
-    this.layers[TilemapLayerNames.DecorationsExtra] = this._map
+    this._layers[TilemapLayerNames.DecorationsExtra] = this._map
       .createStaticLayer(TilemapLayerNames.DecorationsExtra, this._tileset, 0, 0)
     
     
-    this.layers[TilemapLayerNames.Terrain]?.setCollisionBetween(0, 9999, true)
+    this._layers[TilemapLayerNames.Terrain]?.setCollisionBetween(0, 9999, true)
     
     this.entity.scene.cameras?.main.setBounds(0, 0, this._map.widthInPixels, this._map.heightInPixels)
     
   }
   update(time: number, delta: number): void {}
   delete(): void {
-    for (const layer of _.values(this.layers)) {
+    for (const layer of _.values(this._layers)) {
       layer?.destroy()
     }
-    this.layers = {}
+    this._layers = {}
     if (this._map) {
       this._map.destroy()
     }
@@ -108,13 +108,17 @@ export default class TilemapRenderer extends BaseComponent {
   }
 
   public addCollider(gameobject: Phaser.GameObjects.GameObject) {
-    const layer = this.layers[TilemapLayerNames.Terrain]
+    const layer = this._layers[TilemapLayerNames.Terrain]
     if (layer) {
       this.entity.scene.physics.add.collider(layer, gameobject, obj => {
         if (obj.getData(C.GAME_OBJECT_COMPONENT_HANDLE))
           obj.getData(C.GAME_OBJECT_COMPONENT_HANDLE).onCollide(this.entity)
       })
     }
+  }
+
+  public get layers(): Partial<Record<TilemapLayerNames, Phaser.Tilemaps.StaticTilemapLayer>> {
+    return this._layers
   }
 
 }

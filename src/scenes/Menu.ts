@@ -43,7 +43,7 @@ export default class Menu extends BaseScene {
       x: xAxis,
       y: yAxis,
       text: "Play"
-    }, generalC.HELLOWORLD_SCENE_NAME))
+    }, generalC.LEVEL1_SCENE_NAME))
     const collisionMatrix = _.fromPairs(_.zip(specificC.PHYSIC_LAYERS, specificC.PHYSIC_LAYERS.map(() => ({}))))
     collisionMatrix[specificC.UI_PHYSIC_LAYER][specificC.UI_PHYSIC_LAYER] = true
     this.addSystem(commonC.PHYSIC_SYSTEM_NAME, new PhysicSystem(this, specificC.PHYSIC_LAYERS, collisionMatrix))

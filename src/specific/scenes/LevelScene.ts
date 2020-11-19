@@ -1,24 +1,25 @@
-import * as C from "../specific/constants"
-import * as commonC from "../common/constants"
-import BaseScene from "../general/BaseScene"
-import _ from "lodash"
-import TilemapEntity from '~/common/entities/TilemapEntity';
-import PlayerEntity from "../specific/entities/PlayerEntity"
-import PhysicSystem from '~/common/systems/PhysicSystem';
+import * as C from "../constants"
+import * as commonC from "../../common/constants"
 import { Rect, Vec2 } from 'gameutils';
-import ClimbableEntity from '~/specific/entities/ClimbableEntity';
-import SlidingEntity from '~/specific/entities/SlidingEntity';
-import InputSystem from '~/common/systems/InputSystem';
 import ParallaxBackground from '~/common/entities/ParallaxBackground';
-import GameOverDetector from '~/specific/entities/GameOverDetector';
+import TilemapEntity from '~/common/entities/TilemapEntity';
+import BaseScene from '~/general/BaseScene';
+import ClimbableEntity from '../entities/ClimbableEntity';
+import GameOverDetector from '../entities/GameOverDetector';
+import PlayerEntity from '../entities/PlayerEntity';
+import SlidingEntity from '../entities/SlidingEntity';
+import _ from "lodash"
+import PhysicSystem from '~/common/systems/PhysicSystem';
+import InputSystem from '~/common/systems/InputSystem';
+import PoleSystem from '../systems/PoleSystem';
 
-export default class HelloWorldScene extends BaseScene {
-  
-	constructor() {
-    super('hello-world')
-	}
 
-	preload() {
+export default class LevelScene extends BaseScene {
+  constructor(sceneName: string) {
+    super(sceneName)
+  }
+
+  preload() {
     this.load.image('gameTiles', 'sprites/spritesheets/building-ex.png');
     this.load.image('background1', 'sprites/spritesheets/backgrounds/1.png');
     this.load.image('background2', 'sprites/spritesheets/backgrounds/2.png');
@@ -27,37 +28,39 @@ export default class HelloWorldScene extends BaseScene {
     this.load.image('background5', 'sprites/spritesheets/backgrounds/5.png');
     this.load.atlas('player', 'sprites/spritesheets/player.png', 'sprites/spritesheets/player.json')
     this.load.atlas('grapple', 'sprites/spritesheets/grapple.png', 'sprites/spritesheets/grapple.json')
-    this.load.tilemapTiledJSON('level1', 'maps/testmap.json');
+    this.load.tilemapTiledJSON('level1', 'maps/first-level.json');
   }
 
   create() {
     this._clear()
     this.addEntity(new ParallaxBackground(this))
-    this.addEntity(
-      new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(410, 362), new Vec2(418, 560)), [])
-    )
-    this.addEntity(
-      new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(2490, 156), new Vec2(2497, 1216)), [])
-    )
-    this.addEntity(new TilemapEntity(this, {
+    // this.addEntity(
+    //   new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(410, 362), new Vec2(418, 560)), [])
+    // )
+    // this.addEntity(
+    //   new ClimbableEntity(this, Rect.fromTopLeftBottomRight(new Vec2(2490, 156), new Vec2(2497, 1216)), [])
+    // )
+    const tilemap = new TilemapEntity(this, {
       dataKey: "level1",
       tileSetName: "building",
       tileSetSheetKey: "gameTiles"
-    }, []))
+    }, [])
+    this.addEntity(tilemap)
     this.addEntity(new PlayerEntity(this, []))
-    this.addEntity(new SlidingEntity(this, {
-      from: new Vec2(496, 304),
-      to: new Vec2(975.5, 559.5)
-    }, []))
-    this.addEntity(new SlidingEntity(this, {
-      to: new Vec2(2512, 79),
-      from: new Vec2(1071, 559.5)
-    }, []))
+    // this.addEntity(new SlidingEntity(this, {
+    //   from: new Vec2(496, 304),
+    //   to: new Vec2(975.5, 559.5)
+    // }, []))
+    // this.addEntity(new SlidingEntity(this, {
+    //   to: new Vec2(2512, 79),
+    //   from: new Vec2(1071, 559.5)
+    // }, []))
     this.addEntity(new GameOverDetector(this))
     const collisionMatrix = _.fromPairs(_.zip(C.PHYSIC_LAYERS, C.PHYSIC_LAYERS.map(() => ({}))))
     collisionMatrix[C.PLAYER_PHYSIC_LAYER][C.PLAYER_PHYSIC_LAYER] = true
     this.addSystem(commonC.PHYSIC_SYSTEM_NAME, new PhysicSystem(this, C.PHYSIC_LAYERS, collisionMatrix))
     this.addSystem(commonC.INPUT_SYSTEM_NAME, new InputSystem(this))
+    this.addSystem(C.POLE_SYSTEM_NAME, new PoleSystem(this, tilemap))
     super.create()
   }
 }
