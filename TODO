@@ -1,21 +1,26 @@
-- gameobjects generation
-    - generate climbable entity from ladder sprites
-- real levels
-    - implement the first level
-    - implement end screen
-- prettier
-    - create some accessories for roof tops
-    - allow to get inside building ? (add a sprite layer in front like windows or columns)
-- funnier
-    - create runner phases (you have to go at a minimum speed which then increases)
-    - collect points (gold?)
-    - superman mode
 - other
     - allow to remap keyboard (or at least avoid arrow keys)
 - bugs
+    - fix background looking blurry
+    - add cooldown to jump (in tunnels it's glitched)
+    - settimeout on animation change to idle (when re-jumping it's glitchy)
     - it is possible to fly when grappling while holding up
+    - when grappling toward a ladder we end up far from the ladder itself
+    - sometimes when grappling we can get stuck (like if there's an obstacle between the player and the hooke grapple)
+- music
+    - provide a background music
+- publishing
+    - publish on github pages
+due: 27/11
+-----------
+- prettier
+    - create some accessories for roof tops
+- funnier
+    - collect points (gold?)
+    - implement level transitions
+    - implement more levels
+    - create runner phases (you have to go at a minimum speed which then increases)
+    - superman mode
 - code improvements
     - special components for state ? (like the fsm and few values such as isFacingRight)
     - snippet to create components
-    - fix background looking blurry
-    - move common setup to a base class for scenes (ui, systems, etc...)

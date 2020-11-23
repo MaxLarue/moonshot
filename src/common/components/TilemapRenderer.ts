@@ -56,23 +56,23 @@ export default class TilemapRenderer extends BaseComponent {
       2
     )
     this._layers[TilemapLayerNames.Background] = this._map
-      .createStaticLayer(TilemapLayerNames.Background, this._tileset, 0, 0)
+      .createStaticLayer(TilemapLayerNames.Background, this._tileset, 0, 0).setDepth(0)
     this._layers[TilemapLayerNames.BackgroundDetails] = this._map
-      .createStaticLayer(TilemapLayerNames.BackgroundDetails, this._tileset, 0, 0)
+      .createStaticLayer(TilemapLayerNames.BackgroundDetails, this._tileset, 0, 0).setDepth(0)
     this._layers[TilemapLayerNames.BackgroundExtra] = this._map
-      .createStaticLayer(TilemapLayerNames.BackgroundExtra, this._tileset, 0, 0)
+      .createStaticLayer(TilemapLayerNames.BackgroundExtra, this._tileset, 0, 0).setDepth(0)
     this._layers[TilemapLayerNames.Terrain] = this._map
-      .createStaticLayer(TilemapLayerNames.Terrain, this._tileset, 0, 0)
+      .createStaticLayer(TilemapLayerNames.Terrain, this._tileset, 0, 0).setDepth(0)
     this._layers[TilemapLayerNames.TerrainDetails] = this._map
-      .createStaticLayer(TilemapLayerNames.TerrainDetails, this._tileset, 0, 0)
+      .createStaticLayer(TilemapLayerNames.TerrainDetails, this._tileset, 0, 0).setDepth(0)
     this._layers[TilemapLayerNames.TerrainExtra] = this._map
-      .createStaticLayer(TilemapLayerNames.TerrainExtra, this._tileset, 0, 0)
+      .createStaticLayer(TilemapLayerNames.TerrainExtra, this._tileset, 0, 0).setDepth(0)
     this._layers[TilemapLayerNames.Decorations] = this._map
-      .createStaticLayer(TilemapLayerNames.Decorations, this._tileset, 0, 0)
+      .createStaticLayer(TilemapLayerNames.Decorations, this._tileset, 0, 0).setDepth(1)
     this._layers[TilemapLayerNames.DecorationsDetails] = this._map
-      .createStaticLayer(TilemapLayerNames.DecorationsDetails, this._tileset, 0, 0)
+      .createStaticLayer(TilemapLayerNames.DecorationsDetails, this._tileset, 0, 0).setDepth(1)
     this._layers[TilemapLayerNames.DecorationsExtra] = this._map
-      .createStaticLayer(TilemapLayerNames.DecorationsExtra, this._tileset, 0, 0)
+      .createStaticLayer(TilemapLayerNames.DecorationsExtra, this._tileset, 0, 0).setDepth(1)
     
     
     this._layers[TilemapLayerNames.Terrain]?.setCollisionBetween(0, 9999, true)

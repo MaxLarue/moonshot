@@ -20,7 +20,7 @@ export default class GrappleFlyingController extends BaseComponent {
     super(entity, [tags.GRAPPLE_CONTROLLER])
     this._grapple = entity
     this._launcherBody = launcherBody
-    this._maxDst = options.maxDst || 300
+    this._maxDst = options.maxDst || 200
     this._speed = options.speed || 300
 
   }

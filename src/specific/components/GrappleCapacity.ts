@@ -16,7 +16,7 @@ export default class GrappleCapacity extends BaseComponent {
     super(entity, extraTags)
     this._grapple = null
     this._input = null
-    this._cooldown = new Cooldown(1000)
+    this._cooldown = new Cooldown(2000)
   }
 
   create(): void {

@@ -34,4 +34,5 @@ export const BUTTON_ANIMATIONS = [
   {key: BUTTON_HOVER_ANIMATION, frameNames: ['hover'], spriteSheetKey: 'button'},
 ]
 export const POLE_SYSTEM_NAME = "pole-system"
+export const LADDER_SYSTEM_NAME = "ladder-system"
 export const TILEMAP_SIZE = {x: 1000, y: 30}

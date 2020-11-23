@@ -42,7 +42,6 @@ export default class PoleSystem extends BaseSystem {
       }, [])
       this.scene.addEntity(entity)
       entity.create()
-      console.log("added a pole line")
     }
   }
 

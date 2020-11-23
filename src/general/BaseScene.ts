@@ -49,7 +49,6 @@ export default class BaseScene extends Phaser.Scene {
   }
 
   public transition(name: string) {
-    // this._clear()
     this.scene.start(name)
   }
 
@@ -77,7 +76,6 @@ export default class BaseScene extends Phaser.Scene {
       system.delete()
     }
     this._systems = {}
-    console.log("scene was cleared")
   }
 
 }

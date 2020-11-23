@@ -5,18 +5,21 @@ import BaseComponent from '~/general/BaseComponent';
 export interface ParallaxBackgroundLayerOptions {
   scrollFactor: number
   spriteSheetKey: string
+  controlled?: boolean
 }
 
 export default class ParallaxBackgroundLayer extends BaseComponent {
   protected _scrollFactor: number
   protected _spriteSheetKey: string
   protected _sprite: Phaser.GameObjects.TileSprite | null
+  protected _controlled: boolean = true
 
   constructor(entity: Entity, options: ParallaxBackgroundLayerOptions) {
     super(entity, [])
     this._scrollFactor = options.scrollFactor
     this._spriteSheetKey = options.spriteSheetKey
     this._sprite = null
+    this._controlled = !!options.controlled
   }
 
   create() {
@@ -34,8 +37,14 @@ export default class ParallaxBackgroundLayer extends BaseComponent {
   }
 
   update(time: number, delta: number) {
-    if (this._sprite)
+    if (this._sprite && !this._controlled)
       this._sprite.tilePositionX = this.entity.scene.cameras.main.scrollX * this._scrollFactor
+  }
+
+  scroll(speed: number) {
+    if (this._sprite) {
+      this._sprite.tilePositionX += speed * this._scrollFactor
+    }
   }
 
   delete(): void {

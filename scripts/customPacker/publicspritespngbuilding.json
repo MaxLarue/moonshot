@@ -22,5 +22,7 @@
   "public/sprites/png/building/ladder-right-top.png",
   "public/sprites/png/building/pole-base.png",
   "public/sprites/png/building/pole-top.png",
-  "public/sprites/png/building/sliding.png"
+  "public/sprites/png/building/door-left.png",
+  "public/sprites/png/building/middle-window-seethrough.png",
+  "public/sprites/png/building/door-right.png"
 ]

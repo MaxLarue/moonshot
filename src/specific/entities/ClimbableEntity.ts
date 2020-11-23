@@ -9,7 +9,7 @@ import BodyComponent from '~/common/components/BodyComponent'
 export default class ClimbableEntity extends Entity {
   protected hookedEntity: LiveData<Entity | null>
 
-  constructor(scene: BaseScene, zone: Rect, extraTags: string[]) {
+  constructor(scene: BaseScene, zone: Rect, extraTags: string[], isRight?: boolean) {
     super(scene, [], [tags.CLIMBABLE_ENTITY_TAG, ...extraTags])
     this.hookedEntity = new LiveData(null)
     this.addComponent(
@@ -19,7 +19,8 @@ export default class ClimbableEntity extends Entity {
         [tags.CLIMBABLE_COMPONENT_TAG],
         {
           hooked: this.hookedEntity,
-          filter: body => body.entity.hasTag(tags.PLAYER_COMPONENT_TAG)
+          filter: body => body.entity.hasTag(tags.PLAYER_COMPONENT_TAG),
+          right: isRight
         }
       )
     )

@@ -4,6 +4,7 @@ import * as C from "./constants"
 import MenuScene from "./scenes/Menu"
 import Level1 from './scenes/level1'
 import GameOverScene from "./scenes/GameOver"
+import GameDoneScene from "./scenes/GameDone"
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -25,6 +26,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		MenuScene,
 		Level1,
 		GameOverScene,
+		GameDoneScene,
 	]
 }
 
