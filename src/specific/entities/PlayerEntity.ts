@@ -36,7 +36,10 @@ export default class PlayerEntity extends Entity {
     this._stateMachine.subscribe(new FListener((transition) => {
       switch(transition.to) {
         case PlayerStates.IDLE:
-          this.animator.setAnimation(C.PLAYER_IDLE_ANIM)
+          setTimeout(() => {
+            if (this._stateMachine.getState() === PlayerStates.IDLE)
+              this.animator.setAnimation(C.PLAYER_IDLE_ANIM)
+          }, 100)
           break
         case PlayerStates.IN_AIR:
           this.animator.setAnimation(C.PLAYER_JUMPING_ANIM)

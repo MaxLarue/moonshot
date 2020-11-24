@@ -20,6 +20,7 @@ export default class GameOverScene extends BaseScene {
   }
 
   preload() {
+    super.preload()
     this.load.atlas('button', 'sprites/spritesheets/button.png', 'sprites/spritesheets/button.json')
   }
 

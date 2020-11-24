@@ -21,6 +21,7 @@ export default class LevelScene extends BaseScene {
   }
 
   preload() {
+    super.preload()
     this.load.image('gameTiles', 'sprites/spritesheets/building-ex.png');
     this.load.image('background1', 'sprites/spritesheets/backgrounds/1.png');
     this.load.image('background2', 'sprites/spritesheets/backgrounds/2.png');

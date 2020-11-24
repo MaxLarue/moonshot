@@ -67,7 +67,6 @@ export default class LadderSystem extends BaseSystem {
         const entity = new ClimbableEntity(this.scene, rect, [], !top.left)
         this.scene.addEntity(entity)
         entity.create()
-        console.log("created ladder at ", rect)
       }
 
     }

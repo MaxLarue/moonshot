@@ -55,6 +55,14 @@ export default class ClimbableZoneDetector extends ZoneTrigger {
     newController.create()
     playerEntity.stateMachine.transitionTo(PlayerStates.CLIMBING)
     playerEntity.isFacingRight.set(!this._right)
+    const playerBody = playerEntity
+      .getComponentByTag<BodyComponent>(commonTags.BODY_COMPONENT_TAG, BodyComponent)
+    if (this._right) {
+      playerBody.body.x = this.rect.x + 3
+    } else {
+      playerBody.body.x = this.rect.x - 5
+    }
+    playerBody.body.setVelocityX(0)
   }
 
   protected unhookEntity(entity: Entity) {

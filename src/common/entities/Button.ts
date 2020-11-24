@@ -18,6 +18,7 @@ export default abstract class Button extends Entity {
   protected body: BodyComponent
   protected renderer: RendererComponent
   protected animator: Animator
+  protected textComponent: TextComponent
 
   constructor(scene: BaseScene, options: ButtonOptions) {
     super(scene, [], [])
@@ -41,13 +42,13 @@ export default abstract class Button extends Entity {
       current: C.BUTTON_DEFAULT_ANIMATION
     }, [])
     this.addComponent(this.animator)
-
-    this.addComponent(new TextComponent(this, {
+    this.textComponent = new TextComponent(this, {
       x: options.x,
       y: options.y,
       text: options.text,
       color: options.textColor
-    }))
+    })
+    this.addComponent(this.textComponent)
   }
 
   create() {

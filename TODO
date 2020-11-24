@@ -1,19 +1,9 @@
-- other
-    - allow to remap keyboard (or at least avoid arrow keys)
-- bugs
-    - fix background looking blurry
-    - add cooldown to jump (in tunnels it's glitched)
-    - settimeout on animation change to idle (when re-jumping it's glitchy)
-    - it is possible to fly when grappling while holding up
-    - when grappling toward a ladder we end up far from the ladder itself
-    - sometimes when grappling we can get stuck (like if there's an obstacle between the player and the hooke grapple)
-- music
-    - provide a background music
 - publishing
-    - publish on github pages
+    - publish on s3
 due: 27/11
 -----------
 - prettier
+    - add already existing decorations
     - create some accessories for roof tops
 - funnier
     - collect points (gold?)
@@ -21,6 +11,8 @@ due: 27/11
     - implement more levels
     - create runner phases (you have to go at a minimum speed which then increases)
     - superman mode
+- bugs
+    - fix background looking blurry
 - code improvements
     - special components for state ? (like the fsm and few values such as isFacingRight)
     - snippet to create components

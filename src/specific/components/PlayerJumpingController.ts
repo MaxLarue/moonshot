@@ -4,7 +4,7 @@ import * as commonC from "../../common/constants"
 import BaseComponent from '~/general/BaseComponent'
 import Entity from '~/general/Entity';
 import BodyComponent from "../../common/components/BodyComponent"
-import { LiveData } from 'gameutils';
+import { Cooldown, LiveData } from 'gameutils';
 import PlayerStateMachine, { PlayerStates } from '../stateMachines/PlayerStateMachine';
 import InputSystem from '~/common/systems/InputSystem';
 
@@ -14,6 +14,7 @@ export default class PlayerController extends BaseComponent {
   protected _playerBody: BodyComponent | null
   protected facingRight: LiveData<boolean>
   protected playerState: PlayerStateMachine
+  protected jumpCooldown: Cooldown
 
   constructor(entity: Entity, extraTags: string[], isFacingRight: LiveData<boolean>, playerStateMachine: PlayerStateMachine) {
     super(entity, [tags.PLAYER_CONTROLLER_COMPONENT, ...extraTags])
@@ -21,6 +22,7 @@ export default class PlayerController extends BaseComponent {
     this._playerBody = null
     this.playerState = playerStateMachine
     this.facingRight = isFacingRight
+    this.jumpCooldown = new Cooldown(500)
   }
 
   create(): void {
@@ -30,6 +32,7 @@ export default class PlayerController extends BaseComponent {
   update(time: number, delta: number): void {
     this.handleCursors()
     this.handleStateChange()
+    this.jumpCooldown.addDelta(delta)
   }
   delete(): void {
     this._cursors = null
@@ -69,8 +72,12 @@ export default class PlayerController extends BaseComponent {
       } else {
         (this._playerBody?.body as Phaser.Physics.Arcade.Body)?.setVelocityX(0);
       }
-      if (this._cursors.up?.isDown && this.playerState.getState() !== PlayerStates.IN_AIR) {
+      if (this._cursors.up?.isDown
+          && this.playerState.getState() !== PlayerStates.IN_AIR
+          && this.playerState.getState() !== PlayerStates.GRAPPLING
+          && this.jumpCooldown.ready) {
         (this._playerBody?.body as Phaser.Physics.Arcade.Body)?.setVelocityY(-200)
+        this.jumpCooldown.activate()
       }
     }
   }

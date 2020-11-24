@@ -23,6 +23,7 @@ export default class GameDone extends BaseScene {
   }
 
   preload() {
+    super.preload()
     this.load.image('background1', 'sprites/spritesheets/backgrounds/1.png');
     this.load.image('background2', 'sprites/spritesheets/backgrounds/2.png');
     this.load.image('background3', 'sprites/spritesheets/backgrounds/3.png');

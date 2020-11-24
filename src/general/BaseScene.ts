@@ -1,8 +1,10 @@
+import * as C from "../common/constants"
 import Phaser from "phaser"
 import Entity from "./Entity"
 import _ from "lodash"
 import ISystem from './ISystem'
 import { Vec2 } from 'gameutils'
+import MusicSystem from '~/common/systems/MusicSystem'
 
 type EntitySet = Set<Entity>
 
@@ -50,9 +52,13 @@ export default class BaseScene extends Phaser.Scene {
 
   public transition(name: string) {
     this.scene.start(name)
+    this._clear()
   }
 
-  public preload() {}
+  public preload() {
+    this.scene.scene.load.audio(C.MAIN_AUDIO_TRACK, ["/audio/main-audio.mp3"])
+  }
+
   public create() {
     this.scale.setZoom(2)
     this.entities.forEach(e => e.create())
@@ -63,13 +69,16 @@ export default class BaseScene extends Phaser.Scene {
         console.log(pos.add(cameraPos))
       }
     })
+    this.addSystem(C.MUSIC_SYSTEM_NAME, new MusicSystem(this))
     _.values(this._systems).map(s => s.create())
+    console.log(this._systems)
   }
   public update(time, delta) {
     this.entities.forEach(e => e.update(time, delta))
     _.values(this._systems).map(s => s.update(time, delta))
   }
   public _clear() {
+    console.log(this._systems)
     this.entities.forEach(e => e.delete())
     this.entities = new Set()
     for (const system of _.values(this._systems)) {

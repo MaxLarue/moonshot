@@ -26,7 +26,9 @@ export default class TextComponent extends BaseComponent {
     this._color = options.color || '#ffffff'
     this._fontSize = options.fontSize || 12
   }
-
+  public setText(to: string) {
+    this._phaserText?.setText(to)
+  }
   create(): void {
     this._phaserText = this.entity.scene.add.text(this._x, this._y, this._text, {
       color: this._color,
