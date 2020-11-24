@@ -1,5 +1,3 @@
-- publishing
-    - publish on s3
 due: 27/11
 -----------
 - prettier
@@ -13,6 +11,8 @@ due: 27/11
     - superman mode
 - bugs
     - fix background looking blurry
+    - still some glitch when re-jumping (and going a direction)
+    - glitch when sliding at certain speeds
 - code improvements
     - special components for state ? (like the fsm and few values such as isFacingRight)
     - snippet to create components
