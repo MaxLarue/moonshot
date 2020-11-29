@@ -9,6 +9,8 @@ import { Rect } from 'gameutils';
 export class GameOverZoneDetector extends ZoneDetector {
   public onObjectIsIn(body: BodyComponent) {
     if (body.entity.hasTag(tags.PLAYER_ENTITY)) {
+      console.log("clearing")
+      this.entity.scene._clear()
       this.entity.scene.transition(generalC.GAMEOVER_SCENE_NAME)
     }
   }
@@ -18,7 +20,7 @@ export default class GameOverDetector extends Entity {
 
   constructor(scene: BaseScene) {
     super(scene, [], [])
-    this.addComponent(new GameOverZoneDetector(this, new Rect(0, 1000, 999999, 999999), []))
+    this.addComponent(new GameOverZoneDetector(this, new Rect(0, 1000, 999999999, 999999), []))
   }
 
 }

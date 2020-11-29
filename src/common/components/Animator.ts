@@ -41,7 +41,9 @@ export default class Animator extends BaseComponent {
   }
 
   update(time: number, delta: number): void {
-    this.setAnimation(this._current)
+    try {
+      this.setAnimation(this._current)
+    } catch(err){}
   }
 
   delete(): void {

@@ -72,6 +72,6 @@ export default class GrappleRenderer extends BaseComponent {
       line.to.y,
       0,
       0.8
-    ).setOrigin(0, 0).setLineWidth(0.2)
+    ).setOrigin(0, 0).setLineWidth(0.2).setDepth(99999999999)
   }
 }

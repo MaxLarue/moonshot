@@ -11,6 +11,7 @@ type EntitySet = Set<Entity>
 export default class BaseScene extends Phaser.Scene {
   private _entities: EntitySet = new Set()
   private _systems: Record<string, ISystem> = {}
+  private _cleared: boolean = false
   
   public get entities(): EntitySet {
     return this._entities
@@ -60,6 +61,7 @@ export default class BaseScene extends Phaser.Scene {
   }
 
   public create() {
+    this._cleared = false
     this.scale.setZoom(2)
     this.entities.forEach(e => e.create())
     this.input.on('pointerup', pointer => {
@@ -74,11 +76,13 @@ export default class BaseScene extends Phaser.Scene {
     console.log(this._systems)
   }
   public update(time, delta) {
-    this.entities.forEach(e => e.update(time, delta))
-    _.values(this._systems).map(s => s.update(time, delta))
+    if (!this._cleared) {
+      this.entities.forEach(e => e.update(time, delta))
+      _.values(this._systems).map(s => s.update(time, delta))
+    }
   }
   public _clear() {
-    console.log(this._systems)
+    this._cleared = true
     this.entities.forEach(e => e.delete())
     this.entities = new Set()
     for (const system of _.values(this._systems)) {
