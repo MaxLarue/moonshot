@@ -1,10 +1,17 @@
-due: 27/11
------------
+- make gameutils available publicly + change installation path to install from github
+- add a canon at the end of the level to be shot at the moon
+- embed the game in a web page which explains the controls
+- add already existing decorations
+- collect points (gold?)
+
+
+
+
+
+
 - prettier
-    - add already existing decorations
     - create some accessories for roof tops
 - funnier
-    - collect points (gold?)
     - implement level transitions
     - implement more levels
     - create runner phases (you have to go at a minimum speed which then increases)
@@ -13,6 +20,11 @@ due: 27/11
     - fix background looking blurry
     - still some glitch when re-jumping (and going a direction)
     - glitch when sliding at certain speeds
+
+
+
+
+    
 - code improvements
     - special components for state ? (like the fsm and few values such as isFacingRight)
     - snippet to create components
