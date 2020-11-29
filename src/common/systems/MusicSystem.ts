@@ -12,8 +12,6 @@ export default class MusicSystem extends BaseSystem {
 
   delete() {
     super.delete()
-    debugger
-    console.log("music system delete")
     this._backgroundMusic.stop()
     this._backgroundMusic.destroy()
   }

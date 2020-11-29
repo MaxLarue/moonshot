@@ -33,7 +33,7 @@ export default class Animator extends BaseComponent {
       this.entity.scene.anims.create({
         key: anim.key,
         frames: anim.frameNames.map(name => ({key: anim.spriteSheetKey, frame: name})),
-        repeat: anim.loop ? -1 : 1,
+        repeat: anim.loop ? -1 : 0,
         frameRate: anim.frameRate || 24
       })
     }

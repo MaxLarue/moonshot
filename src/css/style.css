@@ -1,0 +1,51 @@
+@font-face {
+  font-family: 'ArcadeClassic';
+  src: url('../fonts/arcade-classic/ArcadeClassic.woff2') format('woff2'),
+      url('../fonts/arcade-classic/ArcadeClassic.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  background-color: #424158;
+  font-family: 'ArcadeClassic', serif;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: white;
+  text-align: center;
+  word-spacing: 5px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#game {
+  margin-top: 50px;
+  width: 100%;
+  text-align: center;
+}
+
+.control-img {
+  height: 64px;
+  width: auto;
+  background-color: black;
+}
+
+canvas {
+  border: 1px solid black;
+}
+
+table {
+  display: inline-block;
+  max-width: 800px;
+}
+
+a {
+  color: #292844;
+}
+
+a:hover {
+  color: #615f81;
+}

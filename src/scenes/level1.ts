@@ -10,7 +10,7 @@ export default class Level1Scene extends LevelScene {
 
   create() {
     super.create()
-    const levelDoneRect = Rect.fromTopLeft(new Vec2(16800, 301.5), new Vec2(9999, 9999))
+    const levelDoneRect = Rect.fromTopLeft(new Vec2(16804, 301.5), new Vec2(1, 1))
     const levelDoneEntity = new LevelDone(this, levelDoneRect, C.GAME_DONE_SCENE)
     this.addEntity(levelDoneEntity)
     levelDoneEntity.create()

@@ -17,7 +17,8 @@ const tiles = [
 const sprites = [
     {name: "player"},
     {name: "grapple"},
-    {name: "button", spriteSize: {x: 100, y: 33}}
+    {name: "button", spriteSize: {x: 100, y: 33}},
+    {name: "cannon"},
 ]
 
 const raw = [

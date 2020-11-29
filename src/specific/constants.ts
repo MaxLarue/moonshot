@@ -4,6 +4,7 @@ export const PLAYER_JUMPING_ANIM = 'jumping'
 export const PLAYER_RUNNING_ANIM = 'running'
 export const PLAYER_CLIMBING_ANIM = "climbing"
 export const PLAYER_CLIMBING_IDLE = "climbing-idle"
+export const PLAYER_SHOT = "player-shot"
 export const PLAYER_SLIDING_ANIM = "anim"
 export const PLAYER_DEFAULT_ANIM = PLAYER_JUMPING_ANIM
 export const PLAYER_ANIMATIONS = [
@@ -13,6 +14,13 @@ export const PLAYER_ANIMATIONS = [
   {key: PLAYER_CLIMBING_ANIM, frameNames: ['climbin-1', 'climbin-2'], spriteSheetKey: 'player', frameRate: 5, loop: true},
   {key: PLAYER_CLIMBING_IDLE, frameNames: ['climbin-idle'], spriteSheetKey: 'player', frameRate: 10, loop: true},
   {key: PLAYER_SLIDING_ANIM, frameNames: ['sliding'], spriteSheetKey: 'player', frameRate: 10, loop: true},
+  {key: PLAYER_SHOT, frameNames: ['shot'], spriteSheetKey: 'player', frameRate: 1, loop: true},
+]
+export const CANON_IDLE_ANIM = "cannon"
+export const CANON_FIRING_ANIM = "cannon-firing"
+export const CANON_ANIMATIONS = [
+  {key: CANON_IDLE_ANIM, frameNames: ['canon'], spriteSheetKey: 'cannon'},
+  {key: CANON_FIRING_ANIM, frameNames: ['canon-firing-1', 'canon-firing-2', 'canon-firing-3', 'canon-firing-4'], spriteSheetKey: 'cannon', loop: false, frameRate: 5},
 ]
 export const PLAYER_PHYSIC_LAYER = "PLAYER_PHYSIC_LAYER"
 export const GRAPPLE_PHYSIC_LAYER = "GRAPPLE_PHYSIC_LAYER"

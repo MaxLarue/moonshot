@@ -1,8 +1,69 @@
 <html>
 	<head>
 		<title>Phaser3 + Parceljs Template</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 	<body>
-		<script src="main.ts"></script>
+		<div id="game">
+			<script src="main.ts"></script>
+		</div>
+		<h1>Moonshot Man</h1>
+		<p>This is a mini game which was developped for the github game off 2020</p>
+		<p>In this game your goal is to shoot yourself at the moon using a big ass cannon</p>
+		<p>In order to do so you'll have to clim, slide, grapple on the roofs of the city to find the launch site</p>
+		<p>Try not to fall, otherwise you won't be able to take off</p>
+
+		<h2>Controls</h2>
+		<p>Two control variants exists, one for qwerty keyboards, one for azerty keyboards</p>
+		<table>
+			<tr>
+				<td><h3>Move around</h3></td>
+			</tr>
+			<tr>
+				<td><p>You can use Q/D (azerty) or A/D (qwerty) to move left and right</p></td>
+				<td><img class="control-img" src="../public/sprites/png/player/running-0.png"/></td>
+			</tr>
+			<tr>
+				<td><p>Use Z (azerty) or W (qwerty) to jump</p></td>
+				<td><img class="control-img" src="../public/sprites/png/player/jumping.png"/></td>
+			</tr>
+			<tr>
+				<td><h3>Sliding</h3></td>
+			</tr>
+			<tr>
+				<td><p>When you find poles, you'll see cables in between, you can hook on these to start sliding, just jump on it</p></td>
+				<td><img class="control-img" src="../public/sprites/png/building/pole-top.png"/></td>
+			</tr>
+			<tr>
+				<td><h3>Climbing</h3></td>
+			</tr>
+			<tr>
+				<td><p>You'll find ladders on the buildings, these can be climbed, simply get close enough to them and you'll start climbing right away</p></td>
+				<td><img class="control-img" src="../public/sprites/png/building/ladder-middle-right.png"/></td>
+			</tr>
+			<tr>
+				<td><p>Once you've reached the top of the ladder keep going up to jump</p></td>
+				<td><img class="control-img" src="../public/sprites/png/building/ladder-right-top.png"/></td>
+			</tr>
+			<tr>
+				<td><p>Once you've reached the bottom of the ladder keep going down to let yourself go</p></td>
+				<td><img class="control-img" src="../public/sprites/png/building/ladder-bottom-right.png"/></td>
+			</tr>
+			<tr>
+				<td><h3>Using the grapple</h3></td>
+			</tr>
+			<tr>
+				<td><p>You can use the grapple at any time, simply aim with the mouse at where you'd like to go and clik to get there.</p></td>
+				<td><img class="control-img" src="../public/sprites/png/grapple/not-hooked.png"/></td>
+			</tr>
+			<tr>
+				<td><p>Your grapple must reach some part of the building, then it'll start pulling you toward where it hooked</p></td>
+				<td><img class="control-img" src="../public/sprites/png/grapple/hooked.png"/></td>
+			</tr>
+		</table>
+		<h2>Assets</h2>
+		<p>Almost all assets were made just for the game except for two:</p>
+		<p>font: the font used on this page was taken from <a href="https://www.1001fonts.com/arcadeclassic-font.html">here</a></p>
+		<p>music: The bakcground music you hear was taken from <a href="https://www.bensound.com/royalty-free-music/track/enigmatic">here</a></p>
 	</body>
 </html>

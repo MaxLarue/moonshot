@@ -50,7 +50,7 @@ export default class Menu extends BaseScene {
     const xAxis = generalC.GAME_WIDTH / 2;
     const yAxis = generalC.GAME_HEIGHT / 2;
     this.addEntity(new TextEntity(this, {
-      text: "Moonshot",
+      text: "Moonshot Man",
       x: xAxis,
       y: 80,
       fontSize: 20,

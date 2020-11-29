@@ -30,6 +30,7 @@ export default class LevelScene extends BaseScene {
     this.load.image('background5', 'sprites/spritesheets/backgrounds/5.png');
     this.load.atlas('player', 'sprites/spritesheets/player.png', 'sprites/spritesheets/player.json')
     this.load.atlas('grapple', 'sprites/spritesheets/grapple.png', 'sprites/spritesheets/grapple.json')
+    this.load.atlas('cannon', 'sprites/spritesheets/cannon.png', 'sprites/spritesheets/cannon.json')
     this.load.tilemapTiledJSON('level1', 'maps/first-level.json');
   }
 

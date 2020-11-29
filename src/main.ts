@@ -8,6 +8,7 @@ import GameDoneScene from "./scenes/GameDone"
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
+	parent: "game",
 	width: C.GAME_WIDTH,
 	height: C.GAME_HEIGHT,
 	backgroundColor: "#000000",

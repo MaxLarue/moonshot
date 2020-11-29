@@ -9,7 +9,8 @@ export enum PlayerStates {
   CLIMBING = "climbing",
   CLIMBING_IDLE = "climbing_idle",
   SLIDING = "sliding",
-  GRAPPLING = "grappling"
+  GRAPPLING = "grappling",
+  SHOT = "shot",
 }
 
 export default class PlayerStateMachine extends ObservableFsm<PlayerStates> {
@@ -46,6 +47,13 @@ export default class PlayerStateMachine extends ObservableFsm<PlayerStates> {
       {from: PlayerStates.GRAPPLING, to: PlayerStates.RUNNING},
       {from: PlayerStates.GRAPPLING, to: PlayerStates.IDLE},
       {from: PlayerStates.GRAPPLING, to: PlayerStates.CLIMBING},
+      {from: PlayerStates.IDLE, to: PlayerStates.SHOT},
+      {from: PlayerStates.RUNNING, to: PlayerStates.SHOT},
+      {from: PlayerStates.IN_AIR, to: PlayerStates.SHOT},
+      {from: PlayerStates.CLIMBING, to: PlayerStates.SHOT},
+      {from: PlayerStates.CLIMBING_IDLE, to: PlayerStates.SHOT},
+      {from: PlayerStates.SLIDING, to: PlayerStates.SHOT},
+      {from: PlayerStates.GRAPPLING, to: PlayerStates.SHOT},
     ]
   }
 
