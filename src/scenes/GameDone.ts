@@ -16,10 +16,17 @@ export class BackToMenuEntity extends Button {
 
 export default class GameDone extends BaseScene {
   protected background: ParallaxBackground | null
+  protected score: number | null
 
   constructor() {
     super(C.GAME_DONE_SCENE)
     this.background = null
+    this.score = null
+  }
+
+  init(data: any) {
+    console.log({data})
+    this.score = data.score
   }
 
   preload() {
@@ -41,18 +48,23 @@ export default class GameDone extends BaseScene {
     this.addEntity(new TextEntity(this, {
       text: "Well done !",
       x: halfWidth,
-      y: C.GAME_HEIGHT / 3,
+      y: C.GAME_HEIGHT / 5,
       fontSize: 24,
     }))
     this.addEntity(new TextEntity(this, {
       text: "you finished the game",
       x: halfWidth,
-      y: C.GAME_HEIGHT / 2
+      y: C.GAME_HEIGHT * 0.4
+    }))
+    this.addEntity(new TextEntity(this, {
+      text: `You're score is: ${this.score}`,
+      x: halfWidth,
+      y: C.GAME_HEIGHT * 0.6
     }))
     this.addEntity(new BackToMenuEntity(this, {
       text: "Menu",
       x: C.GAME_WIDTH / 2,
-      y: C.GAME_HEIGHT / 3 * 2
+      y: C.GAME_HEIGHT * 0.8
     }))
     const collisionMatrix = _.fromPairs(_.zip(specificC.PHYSIC_LAYERS, specificC.PHYSIC_LAYERS.map(() => ({}))))
     collisionMatrix[specificC.UI_PHYSIC_LAYER][specificC.UI_PHYSIC_LAYER] = true

@@ -19,6 +19,7 @@ const sprites = [
     {name: "grapple"},
     {name: "button", spriteSize: {x: 100, y: 33}},
     {name: "cannon"},
+    {name: "moon"}
 ]
 
 const raw = [

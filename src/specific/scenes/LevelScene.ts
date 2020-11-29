@@ -13,6 +13,7 @@ import PhysicSystem from '~/common/systems/PhysicSystem';
 import InputSystem from '~/common/systems/InputSystem';
 import PoleSystem from '../systems/PoleSystem';
 import LadderSystem from '../systems/LadderSystem';
+import PointSystem from '../systems/PointSystem';
 
 
 export default class LevelScene extends BaseScene {
@@ -31,6 +32,7 @@ export default class LevelScene extends BaseScene {
     this.load.atlas('player', 'sprites/spritesheets/player.png', 'sprites/spritesheets/player.json')
     this.load.atlas('grapple', 'sprites/spritesheets/grapple.png', 'sprites/spritesheets/grapple.json')
     this.load.atlas('cannon', 'sprites/spritesheets/cannon.png', 'sprites/spritesheets/cannon.json')
+    this.load.atlas('moon', 'sprites/spritesheets/moon.png', 'sprites/spritesheets/moon.json')
     this.load.tilemapTiledJSON('level1', 'maps/first-level.json');
   }
 
@@ -51,6 +53,7 @@ export default class LevelScene extends BaseScene {
     this.addSystem(commonC.INPUT_SYSTEM_NAME, new InputSystem(this))
     this.addSystem(C.POLE_SYSTEM_NAME, new PoleSystem(this, tilemap))
     this.addSystem(C.LADDER_SYSTEM_NAME, new LadderSystem(this, tilemap))
+    this.addSystem(C.POINT_SYSTEM_NAME, new PointSystem(this, tilemap))
     super.create()
   }
 }

@@ -11,6 +11,7 @@ import Animator from '~/common/components/Animator';
 import BaseComponent from '~/general/BaseComponent';
 import PlayerEntity from './PlayerEntity';
 import { PlayerStates } from '../stateMachines/PlayerStateMachine';
+import PointSystem from '../systems/PointSystem';
 
 export class LevelDoneZoneDetector extends ZoneTrigger {
   protected levelDoneEntity: LevelDone
@@ -67,7 +68,8 @@ export default class LevelDone extends Entity {
         this._animator.setAnimation(C.CANON_IDLE_ANIM)
         playerBody.body.setVelocityY(-800)
         setTimeout(() => {
-          this.scene.transition(this._nextScene)
+          const pointSystem = this.scene.getSystemByName<PointSystem>(C.POINT_SYSTEM_NAME)
+          this.scene.transition(this._nextScene, {score: pointSystem.score})
         }, 1500)
       }, 500)
     }, 1000)

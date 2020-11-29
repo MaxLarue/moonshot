@@ -51,8 +51,8 @@ export default class BaseScene extends Phaser.Scene {
     entity.delete()
   }
 
-  public transition(name: string) {
-    this.scene.start(name)
+  public transition(name: string, data?: any) {
+    this.scene.start(name, data)
     this._clear()
   }
 
