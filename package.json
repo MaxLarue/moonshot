@@ -38,7 +38,7 @@
 		"typescript": "^3.8.3"
 	},
 	"dependencies": {
-		"gameutils": "file:../gameutils",
+		"gameutils": "git+https://github.com/maxlarue/gameutils.git",
 		"js-cookie": "^2.2.1",
 		"phaser": "^3.24.1"
 	},
