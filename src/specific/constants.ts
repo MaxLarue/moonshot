@@ -44,3 +44,4 @@ export const BUTTON_ANIMATIONS = [
 export const POLE_SYSTEM_NAME = "pole-system"
 export const LADDER_SYSTEM_NAME = "ladder-system"
 export const TILEMAP_SIZE = {x: 1000, y: 30}
+export const POINT_SYSTEM_NAME = "point-system"

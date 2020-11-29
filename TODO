@@ -1,27 +1,13 @@
-
-- collect points (gold?)
-
-
-
-
-
-
 - prettier
     - create some accessories for roof tops
+    - something else than windows on buildings would be welcome
 - funnier
-    - implement level transitions
     - implement more levels
-    - create runner phases (you have to go at a minimum speed which then increases)
-    - superman mode
+    - implement level transitions
+    - create runner phases (you have to go at a minimum speed which then increases, maybe then moon itself is after you)
+    - superman mode (no gravity, plane controls)
 - bugs
     - fix background looking blurry
     - still some glitch when re-jumping (and going a direction)
     - glitch when sliding at certain speeds
-
-
-
-
-    
-- code improvements
-    - special components for state ? (like the fsm and few values such as isFacingRight)
-    - snippet to create components
+    - some frames are lost especially at the begining, maybe worth a loading screen before the systems are ready

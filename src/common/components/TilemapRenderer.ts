@@ -15,6 +15,7 @@ export enum TilemapLayerNames {
   Decorations = "Decorations",
   DecorationsDetails = "DecorationsDetails",
   DecorationsExtra = "DecorationsExtra",
+  Points = "Points",
 }
 
 export interface TilemapRendererOptions {
@@ -68,12 +69,14 @@ export default class TilemapRenderer extends BaseComponent {
     this._layers[TilemapLayerNames.TerrainExtra] = this._map
       .createStaticLayer(TilemapLayerNames.TerrainExtra, this._tileset, 0, 0).setDepth(0)
     this._layers[TilemapLayerNames.Decorations] = this._map
-      .createStaticLayer(TilemapLayerNames.Decorations, this._tileset, 0, 0).setDepth(1)
+      .createStaticLayer(TilemapLayerNames.Decorations, this._tileset, 0, 0).setDepth(2)
     this._layers[TilemapLayerNames.DecorationsDetails] = this._map
-      .createStaticLayer(TilemapLayerNames.DecorationsDetails, this._tileset, 0, 0).setDepth(1)
+      .createStaticLayer(TilemapLayerNames.DecorationsDetails, this._tileset, 0, 0).setDepth(2)
     this._layers[TilemapLayerNames.DecorationsExtra] = this._map
-      .createStaticLayer(TilemapLayerNames.DecorationsExtra, this._tileset, 0, 0).setDepth(1)
+      .createStaticLayer(TilemapLayerNames.DecorationsExtra, this._tileset, 0, 0).setDepth(2)
     
+    this.layers[TilemapLayerNames.Points] = this._map
+      .createStaticLayer(TilemapLayerNames.Points, this._tileset, 0, 0)
     
     this._layers[TilemapLayerNames.Terrain]?.setCollisionBetween(0, 9999, true)
     
