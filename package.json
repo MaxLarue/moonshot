@@ -7,6 +7,7 @@
 		"assets:clean": "gulp clean",
 		"start": "parcel src/index.html -p 8000",
 		"build": "parcel build src/index.html --out-dir dist",
+		"builditchio": "parcel build src/index.html --out-dir dist --public-url replacethislinewithadot && find ./dist -type f -exec sed -i '' -e 's/replacethislinewithadot/\\./g' {} \\;",
 		"test": "jest",
 		"lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
 	},

@@ -57,7 +57,7 @@ export default class BaseScene extends Phaser.Scene {
   }
 
   public preload() {
-    this.scene.scene.load.audio(C.MAIN_AUDIO_TRACK, ["/audio/main-audio.mp3"])
+    this.scene.scene.load.audio(C.MAIN_AUDIO_TRACK, ["./audio/main-audio.mp3"])
   }
 
   public create() {

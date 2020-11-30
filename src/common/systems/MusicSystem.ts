@@ -6,13 +6,19 @@ export default class MusicSystem extends BaseSystem {
   protected _backgroundMusic: any = null
   create() {
     super.create()
-    this._backgroundMusic = this.scene.sound.add(C.MAIN_AUDIO_TRACK, {loop: true})
-    this._backgroundMusic.play()
+    try {
+      this._backgroundMusic = this.scene.sound.add(C.MAIN_AUDIO_TRACK, {loop: true})
+      this._backgroundMusic.play()
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   delete() {
     super.delete()
-    this._backgroundMusic.stop()
-    this._backgroundMusic.destroy()
+    if (this._backgroundMusic) {
+      this._backgroundMusic.stop()
+      this._backgroundMusic.destroy()
+    }
   }
 }
